@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>steezy.wav</title>
+<meta name="description" content="steezy.wav — copy, flow, essays, stories and lyrics.">
+<link rel="preload" href="fonts/HelveticaNowDisplay-ExtraBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<style>
+  /* homepage-only styles — shared ones live in style.css */
+
+  .title { margin-bottom: 88px; }
+
+  .stats {
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.35;
+    letter-spacing: 0;
+    margin: 0;
+  }
+
+  /* ---------- sections ---------- */
+  section { margin-top: 100px; }
+
+  h2 {
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: 0;
+    margin: 0 0 32px;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: calc((100% - 46px) * 0.625);
+  }
+
+  /* ---------- philosophy ---------- */
+  .philo p {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.35;
+    letter-spacing: 0;
+    margin: 0 0 33px;
+  }
+  .philo p:last-child { margin-bottom: 0; }
+
+  /* ---------- contact ---------- */
+  .field {
+    display: block;
+    width: calc((100% - 46px) * 0.625);
+    margin: 0;
+    padding: 21px 22px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--ink);
+    font: inherit;
+    font-size: 16px;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+    outline: none;
+    transition: border-color var(--ease);
+  }
+  .field:focus { border-color: var(--line-focus); }
+  .field::placeholder { color: var(--ink); opacity: var(--dim); }
+
+  .field + .field { margin-top: 30px; }
+
+  textarea.field {
+    width: 100%;
+    resize: none;
+    overflow: hidden;
+  }
+
+  .send-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+    padding-right: 24px;
+  }
+
+  .send {
+    appearance: none;
+    background: none;
+    border: 0;
+    padding: 4px 0;
+    color: var(--ink);
+    font: inherit;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 0;
+    cursor: pointer;
+    transition: transform var(--ease);
+  }
+  .send:hover,
+  .send:focus-visible { transform: scale(1.06); }
+  .send:hover .d,
+  .send:focus-visible .d { opacity: 1; }
+  .send:focus-visible { outline: 2px solid var(--line-focus); outline-offset: 4px; border-radius: 4px; }
+  .send:disabled { cursor: default; }
+
+  /* spam trap: hidden from people, bots fill it in */
+  .trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  /* ---------- small screens ---------- */
+  @media (max-width: 600px) {
+    .title { margin-bottom: 56px; }
+    .stats { font-size: 21px; }
+    section { margin-top: 76px; }
+    h2 { font-size: 26px; }
+    .cards, .field { width: 100%; }
+    .philo p, .send { font-size: 18px; }
+    .send-row { padding-right: 4px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .send { transition: none; }
+    .send:hover, .send:focus-visible { transform: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <h1 class="title">steezy.wav</h1>
+
+  <p class="stats">
+    <span class="d">300,000+</span> subscribers<br>
+    <span class="d">3,000,000+</span> streams<br>
+    <span class="d">60,000,000+</span> views<br>
+    <br>
+    <span class="d">one</span> acquisition<br>
+    <br>
+    no <span class="d">budget</span><br>
+    no <span class="d">team</span><br>
+    no <span class="d">ads</span>
+  </p>
+
+  <section>
+    <h2>spec work</h2>
+    <nav class="cards">
+      <a class="card" href="/designfiles"><span class="d">landing copy</span> <span class="b">* DesignFiles</span></a>
+      <a class="card" href="/kalmm"><span class="d">abandoned cart flow</span> <span class="b">* Kalmm</span></a>
+    </nav>
+  </section>
+
+  <section>
+    <h2>vocal range</h2>
+    <nav class="cards">
+      <a class="card" href="/kalmm"><span class="d">flow</span></a>
+      <a class="card" href="/designfiles"><span class="d">copy</span></a>
+      <a class="card" href="/experience-diet"><span class="d">essay</span></a>
+      <a class="card" href="/duo"><span class="d">story</span></a>
+      <a class="card" href="/commission"><span class="d">lyrics</span></a>
+    </nav>
+  </section>
+
+  <section class="philo">
+    <h2>philosophy * <span class="d">focus is sacred</span></h2>
+    <p>
+      <span class="d">your</span> life <span class="d">= your</span> experience.<br>
+      <span class="d">how you spend your</span> focus <span class="d">= how you spend your</span> life.<br>
+      no refunds.
+    </p>
+    <p>
+      <span class="d">if a reader decides to</span> spend <span class="d">some of that</span> limited life <span class="d">on</span> your work,<br>
+      <span class="d">you should</span> respect that <span class="d">by making sure they leave with</span> something.<br>
+      <span class="d">an idea, perspective, reassurance, hope, inspiration, anything.</span>
+    </p>
+    <p><span class="d">as long as it's</span> real.</p>
+    <p>
+      <span class="d">if you convince you,</span><br>
+      you convince me.
+    </p>
+  </section>
+
+  <section>
+    <h2>contact</h2>
+    <!-- messages go to your inbox through Formspree — see notes.md -->
+    <form id="contact" action="https://formspree.io/f/xyeknwle" method="POST" novalidate>
+      <input class="field" type="email" name="email" placeholder="your email" aria-label="your email" autocomplete="email" required>
+      <input class="field" type="text" name="_subject" placeholder="subject" aria-label="subject" autocomplete="off">
+      <textarea class="field" name="message" rows="1" placeholder="message" aria-label="message" required></textarea>
+      <div class="trap" aria-hidden="true"><input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+      <div class="send-row">
+        <button class="send" type="submit"><span class="d" id="send-label">send</span></button>
+      </div>
+    </form>
+  </section>
+
+</main>
+
+<script>
+  (function () {
+    var form = document.getElementById('contact');
+    var msg = form.elements.message;
+    var label = document.getElementById('send-label');
+
+    // message box grows with its content
+    function grow() {
+      msg.style.height = 'auto';
+      msg.style.height = (msg.scrollHeight + 2) + 'px';
+    }
+    msg.addEventListener('input', grow);
+
+    // send through Formspree; the visitor's email becomes the reply-to address
+    var email = form.elements.email;
+    var button = form.querySelector('.send');
+    var busy = false;
+
+    function show(text, ms) {
+      label.textContent = text;
+      if (ms) setTimeout(function () { label.textContent = 'send'; }, ms);
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (busy) return;
+      if (!email.value.trim() || !email.checkValidity()) { email.focus(); return; }
+      if (!msg.value.trim()) { msg.focus(); return; }
+
+      var data = new FormData(form);
+      if (!String(data.get('_subject') || '').trim()) data.delete('_subject');
+
+      busy = true; button.disabled = true; show('sending');
+      fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
+        .then(function (r) {
+          if (!r.ok) throw new Error(r.status);
+          form.reset(); grow(); show('sent', 3000);
+        })
+        .catch(function () { show('try again', 3000); })
+        .then(function () { busy = false; button.disabled = false; });
+    });
+  })();
+</script>
+</body>
+</html>
