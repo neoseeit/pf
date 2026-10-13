@@ -3,18 +3,37 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf6">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>steezy.wav</title>
 <meta name="description" content="steezy.wav — copy, flow, essays, stories and lyrics.">
-<link rel="preload" href="fonts/HelveticaNowDisplay-ExtraBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/HelveticaNowDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 <style>
   /* homepage-only styles — shared ones live in style.css */
 
   .title { margin-bottom: 88px; }
 
+  /* blinking block cursor after "steezy.wav" */
+  .cursor {
+    display: inline-block;
+    width: 0.5em;
+    height: 0.78em;
+    margin-left: 0.1em;
+    vertical-align: -0.04em;
+    background: var(--accent);
+    animation: blink 1.1s step-end infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
   .stats {
     font-size: 24px;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.35;
     letter-spacing: 0;
     margin: 0;
@@ -41,7 +60,7 @@
   /* ---------- philosophy ---------- */
   .philo p {
     font-size: 20px;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.35;
     letter-spacing: 0;
     margin: 0 0 33px;
@@ -56,7 +75,7 @@
     padding: 21px 22px;
     border: 1px solid var(--line);
     border-radius: 10px;
-    background: #fff;
+    background: var(--bg);
     color: var(--ink);
     font: inherit;
     font-size: 16px;
@@ -91,7 +110,7 @@
     color: var(--ink);
     font: inherit;
     font-size: 20px;
-    font-weight: 800;
+    font-weight: 700;
     letter-spacing: 0;
     cursor: pointer;
     transition: transform var(--ease);
@@ -126,7 +145,7 @@
 <body>
 <main>
 
-  <h1 class="title">steezy.wav</h1>
+  <h1 class="title">steezy.wav<span class="cursor" aria-hidden="true"></span></h1>
 
   <p class="stats">
     <span class="d">300,000+</span> subscribers<br>
@@ -182,8 +201,7 @@
     <h2>contact</h2>
     <!-- messages go to your inbox through Formspree — see notes.md -->
     <form id="contact" action="https://formspree.io/f/xyeknwle" method="POST" novalidate>
-      <input class="field" type="email" name="email" placeholder="your email" aria-label="your email" autocomplete="email" required>
-      <input class="field" type="text" name="_subject" placeholder="subject" aria-label="subject" autocomplete="off">
+      <input class="field" type="email" name="email" placeholder="email" aria-label="email" autocomplete="email" required>
       <textarea class="field" name="message" rows="1" placeholder="message" aria-label="message" required></textarea>
       <div class="trap" aria-hidden="true"><input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></div>
       <div class="send-row">
@@ -212,6 +230,17 @@
     var button = form.querySelector('.send');
     var busy = false;
 
+    // email subject = start of the message: first line, max 50 characters,
+    // cut at a word break where possible, with … when it's shortened
+    function subjectFrom(text) {
+      var line = text.trim().split(/\n/)[0].replace(/\s+/g, ' ').trim();
+      if (line.length <= 50) return line;
+      var cut = line.slice(0, 50);
+      var space = cut.lastIndexOf(' ');
+      if (space > 30) cut = cut.slice(0, space);
+      return cut.replace(/[\s.,;:!?-]+$/, '') + '…';
+    }
+
     function show(text, ms) {
       label.textContent = text;
       if (ms) setTimeout(function () { label.textContent = 'send'; }, ms);
@@ -224,7 +253,7 @@
       if (!msg.value.trim()) { msg.focus(); return; }
 
       var data = new FormData(form);
-      if (!String(data.get('_subject') || '').trim()) data.delete('_subject');
+      data.set('_subject', subjectFrom(msg.value));
 
       busy = true; button.disabled = true; show('sending');
       fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })

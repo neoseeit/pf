@@ -4,7 +4,8 @@
    ========================================================= */
 
 /* Helvetica Now Display, hosted with the site
-   500 Medium = body text · 800 ExtraBold = headings, cards, bold words · 900 Black = page titles */
+   500 Medium = body text · 700 Bold = cards, stats, bold words
+   800 ExtraBold = page titles, section titles + headings */
 @font-face {
   font-family: "Helvetica Now Display";
   font-style: normal;
@@ -22,6 +23,20 @@
 @font-face {
   font-family: "Helvetica Now Display";
   font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/HelveticaNowDisplay-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Helvetica Now Display";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/HelveticaNowDisplay-BoldIta.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Helvetica Now Display";
+  font-style: normal;
   font-weight: 800;
   font-display: swap;
   src: url("fonts/HelveticaNowDisplay-ExtraBold.woff2") format("woff2");
@@ -33,20 +48,15 @@
   font-display: swap;
   src: url("fonts/HelveticaNowDisplay-ExtBdIta.woff2") format("woff2");
 }
-@font-face {
-  font-family: "Helvetica Now Display";
-  font-style: normal;
-  font-weight: 900;
-  font-display: swap;
-  src: url("fonts/HelveticaNowDisplay-Black.woff2") format("woff2");
-}
 
 :root {
-  --ink: #2c2c2b;        /* Notion charcoal = 100% */
+  --bg: #fbfaf6;         /* warm off-white page */
+  --ink: #221e1a;        /* warm graphite text = 100% */
+  --accent: #eba644;     /* cursor */
   --dim: 0.62;           /* gray = ink at this opacity (matches Notion gray on white) */
-  --callout: #f7f6f3;
-  --line: rgba(44, 44, 43, 0.14);
-  --line-focus: rgba(44, 44, 43, 0.32);
+  --callout: #f2f0ea;    /* boxes: one step darker than the page */
+  --line: rgba(34, 30, 26, 0.14);
+  --line-focus: rgba(34, 30, 26, 0.32);
   --ease: 0.22s ease;
   --page: 708px;         /* content width */
 }
@@ -56,7 +66,7 @@
 html, body { margin: 0; padding: 0; }
 
 body {
-  background: #fff;
+  background: var(--bg);
   color: var(--ink);
   font-family: "Helvetica Now Display", "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   font-weight: 500;
@@ -65,7 +75,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-strong { font-weight: 800; }
+strong { font-weight: 700; }
 
 main {
   max-width: calc(var(--page) + 48px);
@@ -79,7 +89,7 @@ main {
 /* ---------- page title ---------- */
 .title {
   font-size: 40px;
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1.2;
   letter-spacing: -0.01em;
   margin: 0 0 24px;
@@ -92,7 +102,7 @@ main {
   border-radius: 10px;
   padding: 23px 22px;
   font-size: 20px;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0;
   color: inherit;
@@ -121,7 +131,7 @@ main {
   display: flex;
   align-items: center;
   padding: 0 12px;
-  background: #fff;
+  background: var(--bg);
   font-size: 14px;
   line-height: 1.2;
   white-space: nowrap;
