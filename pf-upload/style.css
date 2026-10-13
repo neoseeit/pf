@@ -1,0 +1,204 @@
+/* =========================================================
+   steezy.wav — shared styles for every page
+   Change the font, colors or gray level here once.
+   ========================================================= */
+
+/* Helvetica Now Display, hosted with the site
+   500 Medium = body text · 800 ExtraBold = headings, cards, bold words · 900 Black = page titles */
+@font-face {
+  font-family: "Helvetica Now Display";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/HelveticaNowDisplay-Medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Helvetica Now Display";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/HelveticaNowDisplay-MedIta.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Helvetica Now Display";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("fonts/HelveticaNowDisplay-ExtraBold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Helvetica Now Display";
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+  src: url("fonts/HelveticaNowDisplay-ExtBdIta.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Helvetica Now Display";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("fonts/HelveticaNowDisplay-Black.woff2") format("woff2");
+}
+
+:root {
+  --ink: #2c2c2b;        /* Notion charcoal = 100% */
+  --dim: 0.62;           /* gray = ink at this opacity (matches Notion gray on white) */
+  --callout: #f7f6f3;
+  --line: rgba(44, 44, 43, 0.14);
+  --line-focus: rgba(44, 44, 43, 0.32);
+  --ease: 0.22s ease;
+  --page: 708px;         /* content width */
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: #fff;
+  color: var(--ink);
+  font-family: "Helvetica Now Display", "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+strong { font-weight: 800; }
+
+main {
+  max-width: calc(var(--page) + 48px);
+  margin: 0 auto;
+  padding: 120px 24px 160px;
+}
+
+/* gray = opacity shift of the ink, never a separate color */
+.d { opacity: var(--dim); transition: opacity var(--ease); }
+
+/* ---------- page title ---------- */
+.title {
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 24px;
+}
+
+/* ---------- clickable callout card ---------- */
+.card {
+  display: block;
+  background: var(--callout);
+  border-radius: 10px;
+  padding: 23px 22px;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: inherit;
+  text-decoration: none;
+  transition: transform var(--ease);
+  will-change: transform;
+}
+.card:hover,
+.card:focus-visible { transform: scale(1.03); }
+
+/* on hover: gray parts go full, full parts (.b) go gray */
+.card:hover .d,
+.card:focus-visible .d { opacity: 1; }
+.card .b { transition: opacity var(--ease); }
+.card:hover .b,
+.card:focus-visible .b { opacity: var(--dim); }
+
+.card:focus-visible { outline: 2px solid var(--line-focus); outline-offset: 3px; }
+
+/* ---------- breadcrumb (subpages) ---------- */
+.crumbs {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 10;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  background: #fff;
+  font-size: 14px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.crumb {
+  display: inline-block;
+  padding: 2px 6px;
+  color: inherit;
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: opacity var(--ease), transform var(--ease);
+}
+a.crumb:hover,
+a.crumb:focus-visible { opacity: 1; transform: scale(1.06); }
+.crumb:focus-visible { outline: 2px solid var(--line-focus); outline-offset: 1px; border-radius: 4px; }
+.crumbs .sep { opacity: 0.3; padding: 0 1px; }
+
+/* ---------- long-form text in boxes (subpages) ---------- */
+.sub main { padding-top: 150px; }
+
+.prose {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: var(--callout);
+  border-radius: 10px;
+  padding: 20px 22px;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.01em;   /* Display cut is tight; open it up a touch for small text */
+}
+.box p {
+  margin: 0;
+  min-height: 1.5em;          /* an empty box still shows one line, like Notion */
+  white-space: pre-wrap;      /* keep the source text's spacing exactly */
+}
+.box .gap { height: 1.5em; }  /* a blank line from the source */
+.prose > .gap { height: 1.5em; margin: 0; }
+
+/* headings inside boxes (Notion H1–H4 become h2–h5 on the site) */
+.box h2, .box h3, .box h4, .box h5 {
+  margin: 0;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: 0;
+  white-space: pre-wrap;
+}
+.box h2 { font-size: 30px; margin-top: 18px; }
+.box h3 { font-size: 24px; margin-top: 12px; }
+.box h4 { font-size: 20px; margin-top: 6px; }
+.box h5 { font-size: 18px; margin-top: 2px; }
+.box > :first-child { margin-top: 0; }
+
+/* bullet points inside boxes */
+.box ul { margin: 0; padding-left: 1.7em; }
+.box li { white-space: pre-wrap; padding-left: 0.1em; }
+
+/* ---------- small screens ---------- */
+@media (max-width: 600px) {
+  main { padding: 72px 20px 120px; }
+  .sub main { padding-top: 100px; }
+  .title { font-size: 34px; }
+  .card { font-size: 18px; }
+  .box { padding: 18px 18px; }
+  .box h2 { font-size: 26px; }
+  .box h3 { font-size: 21px; }
+  .crumbs { padding: 0 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .crumb, .d, .card .b { transition: none; }
+  .card:hover, .card:focus-visible,
+  a.crumb:hover, a.crumb:focus-visible { transform: none; }
+}
