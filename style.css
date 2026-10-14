@@ -195,6 +195,12 @@ a.crumb:focus-visible { opacity: 1; transform: scale(1.06); }
 .box ul { margin: 0; padding-left: 1.7em; }
 .box li { white-space: pre-wrap; padding-left: 0.1em; }
 
+/* side-by-side columns + images inside boxes (stacked on phones) */
+.cols { display: flex; gap: 16px; }
+.col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 15px; }
+.img { margin: 0; }
+.img img { display: block; width: 100%; height: auto; }
+
 /* ---------- small screens ---------- */
 @media (max-width: 600px) {
   main { padding: 72px 20px 120px; }
@@ -205,6 +211,7 @@ a.crumb:focus-visible { opacity: 1; transform: scale(1.06); }
   .box h2 { font-size: 26px; }
   .box h3 { font-size: 21px; }
   .crumbs { padding: 0 8px; }
+  .cols { flex-direction: column; }
 }
 
 @media (prefers-reduced-motion: reduce) {
