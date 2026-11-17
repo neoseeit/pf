@@ -3,40 +3,43 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#fbfaf6">
+<meta name="theme-color" content="#e9e8ff">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>abandoned cart for Kalmm · steezy.wav</title>
-<link rel="preload" href="fonts/HelveticaNowDisplay-Medium.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/CVSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/CVDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="sub">
 
-  <nav class="crumbs" aria-label="breadcrumb">
-    <a class="crumb d" href="/">steezy.wav</a>
-    <span class="sep" aria-hidden="true">/</span>
-    <span class="crumb d" aria-current="page">abandoned cart for Kalmm</span>
-  </nav>
+<header class="bar"><div class="wrap top">
+  <a class="logo" href="/">steezy.wav</a>
+  <span class="here" aria-current="page">abandoned cart for Kalmm</span>
+</div></header>
 
-  <main>
+<div class="wrap">
+  <div class="page-hero">
+    <span class="tag">abandoned cart flow</span>
     <h1 class="title">abandoned cart for Kalmm<span class="cursor" aria-hidden="true"></span></h1>
+  </div>
 
-    <div class="prose">
+  <main class="prose">
       <div class="box">
         <p><strong>What I found</strong>: I abandoned cart on Kalmm's website and didn't receive anything. So I decided to write one. This version is aimed at new customers.</p>
       </div>
-      <div class="box">
+      <div class="box empty">
         <p class="gap" aria-hidden="true"></p>
       </div>
       <div class="box">
-        <p><span class="d">after 48 hours</span></p>
+        <p class="label"><span class="d">after 48 hours</span></p>
         <h4>You dropped something!</h4>
         <p class="gap" aria-hidden="true"></p>
         <p>Excuse me,</p>
         <p>We found this in your cart, but we couldn't find you!</p>
         <p class="gap" aria-hidden="true"></p>
-        <p><span class="d">[cart html with checkout button]</span></p>
+        <p class="ph"><span class="d">[cart html with checkout button]</span></p>
         <p><br>We get it.</p>
         <p>Daily life can get chaotic.</p>
         <p>It's why [50.000+] people choose us.</p>
@@ -54,7 +57,7 @@
         <p class="gap" aria-hidden="true"></p>
       </div>
       <div class="box">
-        <p><span class="d">after 5 days</span></p>
+        <p class="label"><span class="d">after 5 days</span></p>
         <h4>20% off everything, this week only.</h4>
         <p class="gap" aria-hidden="true"></p>
         <p>Hey!</p>
@@ -78,11 +81,11 @@
         <p>Lots of hugs,</p>
         <p>Kalmm.</p>
         <p class="gap" aria-hidden="true"></p>
-        <p><span class="d">[cart html with checkout button]</span></p>
-        <p><span class="d">[explore more button]</span></p>
+        <p class="ph"><span class="d">[cart html with checkout button]</span></p>
+        <p class="ph"><span class="d">[explore more button]</span></p>
       </div>
       <div class="box">
-        <p><span class="d">48 hours before the offer ends</span></p>
+        <p class="label"><span class="d">48 hours before the offer ends</span></p>
         <h4>Only 48 hours left!</h4>
         <p class="gap" aria-hidden="true"></p>
         <p>Kool. Kalmm. Kollected.</p>
@@ -104,14 +107,31 @@
         <p>Good luck,</p>
         <p>Kalmm</p>
         <p class="gap" aria-hidden="true"></p>
-        <p><span class="d">[cart html with checkout button]</span></p>
-        <p><span class="d">[explore more button]</span></p>
+        <p class="ph"><span class="d">[cart html with checkout button]</span></p>
+        <p class="ph"><span class="d">[explore more button]</span></p>
       </div>
-      <div class="box">
+      <div class="box empty">
         <p class="gap" aria-hidden="true"></p>
       </div>
-    </div>
   </main>
 
+  <section class="more">
+    <h2>more spec work</h2>
+    <nav class="work">
+      <a href="/breakout-spec-launch"><strong>Breakout</strong><span>product launch</span></a>
+      <a href="/designfiles"><strong>DesignFiles</strong><span>landing copy</span></a>
+    </nav>
+  </section>
+
+  <footer><a href="/">← steezy.wav</a><span>stzywav.com</span></footer>
+</div>
+
+<script>
+  (function () {
+    var bar = document.querySelector(".bar");
+    function on() { bar.classList.toggle("scrolled", window.scrollY > 8); }
+    window.addEventListener("scroll", on, { passive: true }); on();
+  })();
+</script>
 </body>
 </html>

@@ -3,30 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#fbfaf6">
+<meta name="theme-color" content="#e9e8ff">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>duo · steezy.wav</title>
-<link rel="preload" href="fonts/HelveticaNowDisplay-Medium.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/CVSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/CVDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="sub">
 
-  <nav class="crumbs" aria-label="breadcrumb">
-    <a class="crumb d" href="/">steezy.wav</a>
-    <span class="sep" aria-hidden="true">/</span>
-    <span class="crumb d" aria-current="page">duo</span>
-  </nav>
+<header class="bar"><div class="wrap top">
+  <a class="logo" href="/">steezy.wav</a>
+  <span class="here" aria-current="page">duo</span>
+</div></header>
 
-  <main>
+<div class="wrap">
+  <div class="page-hero">
+    <span class="tag">story</span>
     <h1 class="title">duo<span class="cursor" aria-hidden="true"></span></h1>
+  </div>
 
-    <div class="prose">
+  <main class="prose">
       <div class="box">
         <p>can you find him?</p>
       </div>
-      <div class="box">
+      <div class="box empty">
         <p class="gap" aria-hidden="true"></p>
       </div>
       <div class="box">
@@ -168,11 +171,30 @@
         <p class="gap" aria-hidden="true"></p>
         <p>no body to be found.</p>
       </div>
-      <div class="box">
+      <div class="box empty">
         <p class="gap" aria-hidden="true"></p>
       </div>
-    </div>
   </main>
 
+  <section class="more">
+    <h2>vocal range</h2>
+    <nav class="range">
+      <a href="/kalmm">flow</a>
+      <a href="/designfiles">copy</a>
+      <a href="/experience-diet">essay</a>
+      <a href="/commission">lyrics</a>
+    </nav>
+  </section>
+
+  <footer><a href="/">← steezy.wav</a><span>stzywav.com</span></footer>
+</div>
+
+<script>
+  (function () {
+    var bar = document.querySelector(".bar");
+    function on() { bar.classList.toggle("scrolled", window.scrollY > 8); }
+    window.addEventListener("scroll", on, { passive: true }); on();
+  })();
+</script>
 </body>
 </html>

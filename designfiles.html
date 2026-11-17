@@ -3,31 +3,34 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#fbfaf6">
+<meta name="theme-color" content="#e9e8ff">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Design More. Admin Less. · steezy.wav</title>
-<link rel="preload" href="fonts/HelveticaNowDisplay-Medium.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/CVSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/CVDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="sub">
 
-  <nav class="crumbs" aria-label="breadcrumb">
-    <a class="crumb d" href="/">steezy.wav</a>
-    <span class="sep" aria-hidden="true">/</span>
-    <span class="crumb d" aria-current="page">Design More. Admin Less.</span>
-  </nav>
+<header class="bar"><div class="wrap top">
+  <a class="logo" href="/">steezy.wav</a>
+  <span class="here" aria-current="page">Design More. Admin Less.</span>
+</div></header>
 
-  <main>
+<div class="wrap">
+  <div class="page-hero">
+    <span class="tag">landing copy</span>
     <h1 class="title">Design More. Admin Less.<span class="cursor" aria-hidden="true"></span></h1>
+  </div>
 
-    <div class="prose">
+  <main class="prose">
       <div class="box">
         <p><strong>The gap:</strong> her software boosts conversions and that's all she talks about, but quite a few customers mentioned how it made the design process more fun and effective.</p>
         <p><em><span class="d">(I wrote this in her voice.)</span></em></p>
       </div>
-      <div class="box">
+      <div class="box empty">
         <p class="gap" aria-hidden="true"></p>
       </div>
       <div class="box">
@@ -72,16 +75,16 @@
         <p>We haven't figured out the finger snap yet,</p>
         <p>but according to our clients we're pretty close:</p>
         <p class="gap" aria-hidden="true"></p>
-        <p class="d">[Nan Krueger Testimonial "This is a dream come true. Thank you so much!"]</p>
-        <p class="d">[Ramona P. Testimonial: "It’s so much fun and soooo easy."]</p>
-        <p class="d">[Anne C Testimonial: "It has made me a better designer."]</p>
-        <p class="d">[Julie C. Testimonial: "We can show the vision, get feedback, and collaborate across the team and with the client all in one place."]</p>
+        <p class="d ph">[Nan Krueger Testimonial "This is a dream come true. Thank you so much!"]</p>
+        <p class="d ph">[Ramona P. Testimonial: "It’s so much fun and soooo easy."]</p>
+        <p class="d ph">[Anne C Testimonial: "It has made me a better designer."]</p>
+        <p class="d ph">[Julie C. Testimonial: "We can show the vision, get feedback, and collaborate across the team and with the client all in one place."]</p>
         <p class="gap" aria-hidden="true"></p>
         <p>You can try it on <strong>one full project for free</strong> to see the difference.</p>
-        <p class="d">[Start Trial (no card required)]</p>
+        <p class="d ph">[Start Trial (no card required)]</p>
         <p class="gap" aria-hidden="true"></p>
         <p>Or we can hop on a <strong>free 30-minute call</strong> and I'll show you how it works.</p>
-        <p class="d">[Book a Demo]</p>
+        <p class="d ph">[Book a Demo]</p>
         <p class="gap" aria-hidden="true"></p>
         <p>Either way.</p>
         <p>You'll see how every feature is designed to help you:</p>
@@ -89,11 +92,28 @@
         <p><strong>Design more.</strong></p>
         <p><strong>Admin less.</strong></p>
       </div>
-      <div class="box">
+      <div class="box empty">
         <p class="gap" aria-hidden="true"></p>
       </div>
-    </div>
   </main>
 
+  <section class="more">
+    <h2>more spec work</h2>
+    <nav class="work">
+      <a href="/breakout-spec-launch"><strong>Breakout</strong><span>product launch</span></a>
+      <a href="/kalmm"><strong>Kalmm</strong><span>abandoned cart flow</span></a>
+    </nav>
+  </section>
+
+  <footer><a href="/">← steezy.wav</a><span>stzywav.com</span></footer>
+</div>
+
+<script>
+  (function () {
+    var bar = document.querySelector(".bar");
+    function on() { bar.classList.toggle("scrolled", window.scrollY > 8); }
+    window.addEventListener("scroll", on, { passive: true }); on();
+  })();
+</script>
 </body>
 </html>

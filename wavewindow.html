@@ -3,31 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#fbfaf6">
+<meta name="theme-color" content="#e9e8ff">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="robots" content="noindex, nofollow">
 <title>wave window · steezy.wav</title>
-<link rel="preload" href="fonts/HelveticaNowDisplay-Medium.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/CVSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/CVDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="sub">
 
-  <nav class="crumbs" aria-label="breadcrumb">
-    <a class="crumb d" href="/">steezy.wav</a>
-    <span class="sep" aria-hidden="true">/</span>
-    <span class="crumb d" aria-current="page">wave window</span>
-  </nav>
+<header class="bar"><div class="wrap top">
+  <a class="logo" href="/">steezy.wav</a>
+  <span class="here" aria-current="page">wave window</span>
+</div></header>
 
-  <main>
+<div class="wrap">
+  <div class="page-hero">
     <h1 class="title">wave window<span class="cursor" aria-hidden="true"></span></h1>
+  </div>
 
-    <div class="prose">
+  <main class="prose">
       <div class="box">
         <p>how are you <em>really</em> doing?</p>
       </div>
-      <div class="box">
+      <div class="box empty">
         <p class="gap" aria-hidden="true"></p>
       </div>
       <div class="box">
@@ -158,11 +160,20 @@
         <p><br>it's not about the <em>shape</em> of the wave —</p>
         <p>it's how you <em>ride</em> it.</p>
       </div>
-      <div class="box">
+      <div class="box empty">
         <p class="gap" aria-hidden="true"></p>
       </div>
-    </div>
   </main>
 
+  <footer><a href="/">← steezy.wav</a><span>stzywav.com</span></footer>
+</div>
+
+<script>
+  (function () {
+    var bar = document.querySelector(".bar");
+    function on() { bar.classList.toggle("scrolled", window.scrollY > 8); }
+    window.addEventListener("scroll", on, { passive: true }); on();
+  })();
+</script>
 </body>
 </html>
