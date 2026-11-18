@@ -14,10 +14,10 @@
 
 :root {
   --wash: #e9e8ff;      /* lavender at the top of every page */
-  --ink: #1b1a20;       /* headlines */
-  --text: #252228;      /* body text */
-  --mute: #6f6c74;      /* secondary text */
-  --faint: #a5a4a7;     /* gray words */
+  --ink: #14122b;       /* headlines: deep dark purple, almost black */
+  --text: #201f30;      /* body text, same purple tint */
+  --mute: #67657b;      /* secondary text */
+  --faint: #a6a4b5;     /* gray words */
   --line: #ecebf0;      /* borders, dividers */
   --panel: #f7f7f9;     /* light gray panels + cards */
   --accent: #7d74f2;    /* purple text, arrows */
