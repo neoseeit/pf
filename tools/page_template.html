@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#e9e8ff">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+{{head_extra}}<title>{{title}} · steezy.wav</title>
+<link rel="preload" href="fonts/CVSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/CVDisplay-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="site.css?v=12">
+</head>
+<body class="sub">
+
+<header class="bar"><div class="wrap top">
+  <a class="logo" href="/">steezy.wav</a>
+  <span class="here" aria-current="page">{{crumb}}</span>
+</div></header>
+
+<div class="wrap">
+  <div class="page-hero">
+{{tag_html}}    <h1 class="title">{{title}}<span class="cursor" aria-hidden="true"></span></h1>
+  </div>
+
+  <main class="prose">
+{{body}}
+  </main>
+{{more_html}}
+  <footer><a href="/">← steezy.wav</a><span>stzywav.com</span></footer>
+</div>
+
+<script>
+  (function () {
+    var bar = document.querySelector(".bar");
+    function on() { bar.classList.toggle("scrolled", window.scrollY > 8); }
+    window.addEventListener("scroll", on, { passive: true }); on();
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,806 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>wave window</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f958489-d681-8017-8c17-c800d2c7d359" class="page sans"><header><h1 class="page-title" dir="auto">wave window</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-background="gray_background" style="white-space:pre-wrap;display:flex" id="3f958489-d681-80cb-9fe3-ce46bd2d2b26" dir="ltr"><div style="width:100%"><p id="3f958489-d681-8070-b9df-f11b6507606f" class="" dir="auto">how are you <em>really</em> doing?</p></div></aside><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-background="gray_background" style="white-space:pre-wrap;display:flex" id="3f958489-d681-80ef-9130-fbdd5da175ab" dir="ltr"><div style="width:100%"><p id="3f958489-d681-8053-8c2f-c4932049c5b1" class="" dir="auto">
+</p></div></aside><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-background="gray_background" style="white-space:pre-wrap;display:flex" id="3f958489-d681-8008-9e00-e54f003e7917" dir="ltr"><div style="width:100%"><p id="3f958489-d681-807e-b17c-d70c99dac204" class="" dir="auto">one week i&#x27;m on top of the world,</p><p id="3f958489-d681-8044-8c36-ddbf07b6600d" class="" dir="auto">waking up with hope,</p><p id="3f958489-d681-8041-a121-e447bbccd75d" class="" dir="auto">feeling strong.</p><p id="3f958489-d681-80f3-99e8-dc7a2c128102" class="" dir="auto">‎</p><p id="3f958489-d681-8017-aed0-fefb3c848432" class="" dir="auto">the next?</p><p id="3f958489-d681-80ff-b0df-e534b7abcdc4" class="" dir="auto">‎</p><p id="3f958489-d681-8067-88ed-d804864b9244" class="" dir="auto">my alarm&#x27;s the drill sergeant of hell,</p><p id="3f958489-d681-80fd-8b44-c730f2e50c30" class="" dir="auto">a full day of misery ahead,</p><p id="3f958489-d681-808f-986a-fbfc4c5ca23d" class="" dir="auto">kill me.</p><p id="3f958489-d681-807a-805a-e0d5297fb861" class="" dir="auto">‎</p><p id="3f958489-d681-80cf-89fd-cae2d4bac02e" class="" dir="auto">i was stuck in a cycle:</p><p id="3f958489-d681-8072-949f-c63ed158a65f" class="" dir="auto">make progress → lose all faith → recover → repeat</p><p id="3f958489-d681-8021-9bbc-c4a6c7b76d6d" class="" dir="auto">‎‎‎</p><p id="3f958489-d681-802c-83c5-d4b67c84b5b0" class="" dir="auto">it was so draining, i made less progress each cycle.</p><p id="3f958489-d681-807e-89e9-f0a95c451767" class="" dir="auto">thank god i learned to surf.</p><p id="3f958489-d681-80fd-88e0-e22af5885f65" class="" dir="auto">‎‎</p><p id="3f958489-d681-806a-8288-d2cf917af44b" class="" dir="auto">‎</p><h2 id="3f958489-d681-801b-80be-f768b8cef80b" class="" dir="auto">waves</h2><p id="3f958489-d681-8059-9e6c-eefce9118b93" class="" dir="auto">life is constant change, constant motion.</p><p id="3f958489-d681-803c-8dc9-ea696801bad4" class="" dir="auto">life is energy — and energy moves in waves.</p><p id="3f958489-d681-801d-9a84-f013a699b052" class="" dir="auto">‎</p><h3 id="3f958489-d681-8005-8dfe-e56c77c7e9a6" class="" dir="auto"><strong>waves in progress</strong></h3><p id="3f958489-d681-8038-bfa7-f380944388c6" class="" dir="auto">when we progress in something we measure values and try to change them.</p><ul id="3f958489-d681-8004-be4a-e21df1b948b0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">improve your sleep by increasing hours asleep.</li></ul><ul id="3f958489-d681-8011-91d8-c8081e51b278" class="bulleted-list" dir="auto"><li style="list-style-type:disc">improve your spending by reducing how much you spend.</li></ul><p id="3f958489-d681-8079-9ddb-ec05b284da2f" class="" dir="auto">‎</p><p id="3f958489-d681-8007-9b8a-d40ae3678dee" class="" dir="auto">if you record these numbers daily and graph them you&#x27;ll see:</p><p id="3f958489-d681-806b-acce-dd661672c77a" class="" dir="auto">progress is never a straight line.</p><p id="3f958489-d681-8054-8d7a-d76f3f22c00d" class="" dir="auto">‎</p><p id="3f958489-d681-8091-b896-e3b28458bd28" class="" dir="auto">if the line goes <em>up —</em> it&#x27;ll have parts going <em>down</em>.</p><p id="3f958489-d681-80d4-86ee-d4f1e0cccb31" class="" dir="auto">if the line goes <em>down —</em> it&#x27;ll have parts going <em>up</em>.</p><p id="3f958489-d681-802d-a01a-fce2cfff1ce4" class="" dir="auto">‎</p><p id="3f958489-d681-805c-9c90-faf220190fbf" class="" dir="auto">this concept seems obvious — but is invisible from the inside.</p><p id="3f958489-d681-8077-977b-c615c9152994" class="" dir="auto">let me explain:</p><p id="3f958489-d681-80c8-8906-c42b1431df59" class="" dir="auto">‎</p><h3 id="3f958489-d681-801d-b521-c7655539f232" class="" dir="auto"><strong>wave windows</strong></h3><p id="3f958489-d681-808b-81ba-fbf0a8b46f5a" class="" dir="auto">progress only exists in comparison.</p><p id="3f958489-d681-80d8-90f7-d1910086fdb6" class="" dir="auto">compare unfairly — and you turn strength into weakness.</p><p id="3f958489-d681-800b-8534-ddf9645235b4" class="" dir="auto">‎‎‎</p><p id="3f958489-d681-8063-82a3-c67450a5d182" class="" dir="auto">often we made amazing progress —</p><p id="3f958489-d681-804d-9ee5-f49ca7f2b23d" class="" dir="auto">but a slight dip got us demotivated.</p><p id="3f958489-d681-8092-87ea-ecfa17f3f721" class="" dir="auto">‎</p><p id="3f958489-d681-8045-8174-f3d270925c4c" class="" dir="auto">what happens if we zoom in on a wave going up,</p><p id="3f958489-d681-805b-996c-cea19d75c169" class="" dir="auto">so much that we only see the dip moving down?</p><p id="3f958489-d681-80be-8ec3-c4e653a61473" class="" dir="auto">‎‎</p><div id="3f958489-d681-8051-bb0f-d40411d8f3e5" class="column-list" data-notion-column-list="" dir="auto"><div id="3f958489-d681-801f-ba34-e74aad9f5d80" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3f958489-d681-8011-b473-ea32f1d53bbc" class="image" data-notion-image="wave%20window/image.png" dir="ltr"><a href="wave%20window/image.png"><img style="width:3296px" src="wave%20window/image.png"/></a></figure></div><div id="3f958489-d681-80e4-a7fd-f26243fb3c6c" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3f958489-d681-80b0-b245-d678806a42ee" class="image" data-notion-image="wave%20window/image%201.png" dir="ltr"><a href="wave%20window/image%201.png"><img style="width:3296px" src="wave%20window/image%201.png"/></a></figure></div></div><p id="3f958489-d681-803e-b731-f6d3fc064e01" class="" dir="auto">‎</p><p id="3f958489-d681-8001-9640-c88646a21150" class="" dir="auto">as you can see, the amount of data you view changes everything.</p><p id="3f958489-d681-80ca-a2fd-d9c77fb3b4b0" class="" dir="auto">‎</p><p id="3f958489-d681-80b1-8041-c5d59afca1bd" class="" dir="auto">since we have a tendency to get impatient —</p><p id="3f958489-d681-8070-8258-cbd8af2e5ada" class="" dir="auto">it&#x27;s easy to stay zoomed in, constantly judging our progress.</p><p id="3f958489-d681-8091-aa32-fbc3a3dec5a5" class="" dir="auto">‎</p><p id="3f958489-d681-80b0-94af-d2ca7c56e54e" class="" dir="auto">either we can&#x27;t wait for the next rise —</p><p id="3f958489-d681-8087-bd69-dc6106ae6536" class="" dir="auto">or we get scared of the next dip.</p><p id="3f958489-d681-800b-8f43-d37f56e1e3df" class="" dir="auto">‎</p><p id="3f958489-d681-802d-aed4-db2e5a3c2d90" class="" dir="auto">it&#x27;s important to keep a clear head when judging progress.</p><p id="3f958489-d681-8006-ba4c-d06374d4366c" class="" dir="auto">it could change everything…</p><p id="3f958489-d681-800d-a939-c5a6e1cb620d" class="" dir="auto">‎</p><h3 id="3f958489-d681-80e6-8d2d-e1be85536f0d" class="" dir="auto"><strong>changing the waves</strong></h3><p id="3f958489-d681-80b4-a0c9-f04ff7e1ebc0" class="" dir="auto">the direction of your progress line is determined by two factors:</p><ul id="3f958489-d681-80b5-9e91-f6e18e669094" class="bulleted-list" dir="auto"><li style="list-style-type:disc">the way life unfolds. <em>(energy moving in waves)</em></li></ul><ul id="3f958489-d681-8044-8b7e-e20983b27731" class="bulleted-list" dir="auto"><li style="list-style-type:disc">our judgment of it. <em>(measuring values)</em></li></ul><p id="3f958489-d681-8002-8b33-df6620faf8c5" class="" dir="auto">
+</p><p id="3f958489-d681-8091-8f7b-c307f4b5a7e0" class="" dir="auto">you&#x27;re not a god, you can&#x27;t control life — only how you see it.</p><p id="3f958489-d681-8098-b079-c1440c60a4d3" class="" dir="auto">that&#x27;s where your focus needs to be — the controllable half that decides your fate.</p><p id="3f958489-d681-8022-98ca-efd3dee9916f" class="" dir="auto"><br/>‎<br/>zoom in for detail — and you miss the bigger picture.</p><p id="3f958489-d681-8055-b125-dcfdf180c711" class="" dir="auto">zoom out for context — and you can&#x27;t see what&#x27;s happening now.</p><p id="3f958489-d681-80d1-a8b1-e3a44bc1dcda" class="" dir="auto">together though, they got you covered.</p><p id="3f958489-d681-8002-be15-c706ea21e33c" class="" dir="auto"><br/>‎<br/>covering as much ground as possible is crucial,</p><p id="3f958489-d681-8091-af3a-d2add115a5ac" class="" dir="auto">but even then we still have our mental filters.</p><p id="3f958489-d681-8059-b238-f98ffcc98ecf" class="" dir="auto"><br/>‎<br/>we give importance to certain things over others:</p><ul id="3f958489-d681-8029-99e6-dfc766282899" class="bulleted-list" dir="auto"><li style="list-style-type:disc">frame negatively — and you give dips in progress more weight.</li></ul><ul id="3f958489-d681-8075-a4f4-e83749a4c0ab" class="bulleted-list" dir="auto"><li style="list-style-type:disc">frame positively — and you give rises in progress more weight.</li></ul><p id="3f958489-d681-80cc-bbb7-c4e44cf4f048" class="" dir="auto">
+</p><p id="3f958489-d681-801f-ac73-d967affb7d12" class="" dir="auto">this change in framing actually affects our progress:</p><p id="3f958489-d681-807d-891a-fb32040fd1f1" class="" dir="auto">
+</p><p id="3f958489-d681-807a-a777-fc38e3445782" class="" dir="auto">negative framing makes every dip worse — every rise weaker.</p><p id="3f958489-d681-80ce-948d-f3989bbde3a2" class="" dir="auto">positive framing protects against dips and makes rises much stronger.</p><p id="3f958489-d681-80cd-a4f9-c6c7edddc7ec" class="" dir="auto"><br/>‎<br/>now you know how waves move.</p><p id="3f958489-d681-804f-b8cc-fd5579a863d3" class="" dir="auto">time to surf.</p><p id="3f958489-d681-80b4-b222-dc33d802e71f" class="" dir="auto">
+</p><h2 id="3f958489-d681-80a9-a24c-da0280c79765" class="" dir="auto">riding the wave</h2><p id="3f958489-d681-800b-98fe-e68827d46e87" class="" dir="auto">if you want to progress efficiently, you have to manage your perspective.</p><p id="3f958489-d681-8053-bc0f-c5f5dd892b50" class="" dir="auto">‎</p><p id="3f958489-d681-805c-8fe4-ea2def1c86a9" class="" dir="auto">it all boils down to just three things.</p><ul id="3f958489-d681-800f-99a9-d9271d433d1a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>collect and judge your progress zoomed in &amp; zoomed out.</strong></li></ul><ul id="3f958489-d681-8002-8c9d-e3ee42f87a82" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>frame things positively.</strong></li></ul><ul id="3f958489-d681-8011-957b-cc714a63b13e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>act.</strong></li></ul><p id="3f958489-d681-8065-8700-f20feed6d993" class="" dir="auto">
+</p><p id="3f958489-d681-800f-a596-c1ca2e3c3f07" class="" dir="auto">if a dip in progress got you feeling some type of way.</p><p id="3f958489-d681-8006-8d82-e2265c271091" class="" dir="auto">zoom out real quick.</p><p id="3f958489-d681-809a-a4e8-e1b919f46a87" class="" dir="auto">
+</p><p id="3f958489-d681-809a-b741-ee4195003805" class="" dir="auto">‎you might be killin it — you just forgot how to look.‎</p><p id="3f958489-d681-804d-beaf-d0bf5b88d857" class="" dir="auto">
+</p><p id="3f958489-d681-8027-a88e-d5f07885ac55" class="" dir="auto">and don&#x27;t compare your progress line to other ones.</p><p id="3f958489-d681-8036-aa65-d257e6e3854d" class="" dir="auto"><br/>every wave is different</p><p id="3f958489-d681-8017-a0c2-f43a669c1dc7" class="" dir="auto">and progress isn&#x27;t linear at all.</p><p id="3f958489-d681-802e-9db6-f85aaef56584" class="" dir="auto"><br/>you could make way more progress in the next 2 years</p><p id="3f958489-d681-8030-9954-ed340591477e" class="" dir="auto">than your idol has done in their entire life.</p><p id="3f958489-d681-800c-a929-c6c51b22f3d2" class="" dir="auto"><br/>it&#x27;s not about the <em>shape</em> of the wave —</p><p id="3f958489-d681-8031-bedf-ca119f0185b8" class="" dir="auto">it&#x27;s how you <em>ride</em> it.</p></div></aside><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-background="gray_background" style="white-space:pre-wrap;display:flex" id="3f958489-d681-80e6-94e4-da9f8d781c95" dir="ltr"><div style="width:100%"><p id="3f958489-d681-80ce-bb0a-ee8320e78b80" class="" dir="auto">
+</p></div></aside></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

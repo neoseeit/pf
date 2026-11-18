@@ -1,0 +1,90 @@
+# abandoned cart
+
+┌──────── box
+**What I found**: I abandoned cart on Kalmm's website and didn't receive anything. So I decided to write one. This version is aimed at new customers.
+└────────
+┌──────── box
+
+└────────
+┌──────── box
+⟨after 48 hours⟩
+### You dropped something!
+
+Excuse me,
+We found this in your cart, but we couldn't find you!
+
+⟨[cart html with checkout button]⟩
+
+We get it.
+Daily life can get chaotic.
+It's why [50.000+] people choose us.
+
+Soothing your skin with the right fabric is our mission.
+Every bit of calm helps in stressful situations
+and why not look great while you're at it?
+
+We never charge for shipping and returns.
+You can buy it, try it and return it for free.
+Because we don't want you to worry.
+
+We want you to feel like us,
+Kalmm
+
+└────────
+┌──────── box
+⟨after 5 days⟩
+### 20% off everything, this week only.
+
+Hey!
+
+Did you know the most comfortable clothes you'll ever own are on sale right now?
+
+Yes.. that includes the one in your cart!
+
+The calming effect our fabrics leave on your skin...
+That extra soft weight of our premium cotton hugging you as it breathes...
+
+There's truly nothing like it.
+
+Get yours at 20% off,
+If you order by [sunday].
+
+Free shipping.
+Free returns.
+As always.
+
+Lots of hugs,
+Kalmm.
+
+⟨[cart html with checkout button]⟩
+⟨[explore more button]⟩
+└────────
+┌──────── box
+⟨48 hours before the offer ends⟩
+### Only 48 hours left!
+
+Kool. Kalmm. Kollected.
+
+We know it's hard, there's so many options!
+But if you panic, you'll lose our biggest gift to you.
+
+20% off everything!
+
+That's right.
+Even on our most high-end fabrics.
+Even the one you've wanted for a while now...
+
+This is your last chance to snatch 'em for a bargain!
+
+20% off site-wide.
+48 hours.
+
+Good luck,
+Kalmm
+
+⟨[cart html with checkout button]⟩
+⟨[explore more button]⟩
+└────────
+┌──────── box
+
+└────────

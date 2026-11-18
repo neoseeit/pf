@@ -1,0 +1,801 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>habit shredding</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f958489-d681-8088-b2ca-d8481c26f528" class="page sans"><header><h1 class="page-title" dir="auto">habit shredding</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-background="gray_background" style="white-space:pre-wrap;display:flex" id="3f958489-d681-802e-8306-e341af0c1665" dir="ltr"><div style="width:100%"><p id="3f958489-d681-804f-871f-c117a28edbe7" class="" dir="auto">carve a life worth living.</p></div></aside><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-background="gray_background" style="white-space:pre-wrap;display:flex" id="3f958489-d681-80d2-9745-e55230a30ef3" dir="ltr"><div style="width:100%"><p id="3f958489-d681-804f-81be-df6e3fb9a810" class="" dir="auto">
+</p></div></aside><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-background="gray_background" style="white-space:pre-wrap;display:flex" id="3f958489-d681-8077-9d71-d9f35969c675" dir="ltr"><div style="width:100%"><p id="3f958489-d681-80d0-8d3d-e54b88150470" class="" dir="auto">sometimes it feels like i don’t control my life at all.</p><p id="3f958489-d681-8034-8c3c-c0325f459a40" class="" dir="auto">i say i’m quitting, i do it again.</p><p id="3f958489-d681-80f1-b4b0-feaf629c1173" class="" dir="auto">i say i will, but i won’t.</p><p id="3f958489-d681-8053-a556-cbe4df3d6c11" class="" dir="auto">‎</p><p id="3f958489-d681-805a-869b-ec33acd8c041" class="" dir="auto">habits are tricky like that.</p><p id="3f958489-d681-807b-b62d-c6e0b614f447" class="" dir="auto">you know what i mean?</p><p id="3f958489-d681-803c-961b-fc3cdc50518b" class="" dir="auto">‎</p><p id="3f958489-d681-80ec-aa79-ff14bbd08f22" class="" dir="auto">the problem?</p><p id="3f958489-d681-80d8-b262-ea50ffbd9bc5" class="" dir="auto">they usually run in the background.</p><p id="3f958489-d681-8028-b2e1-f3590d9584f5" class="" dir="auto">subconscious. automatic. hard to catch.</p><p id="3f958489-d681-8077-bdfd-e093880367c5" class="" dir="auto">‎</p><p id="3f958489-d681-80b3-a014-db9c208d6696" class="" dir="auto">so… are we just slaves to them?</p><p id="3f958489-d681-80fa-b261-f47a16797270" class="" dir="auto">some people are, some aren’t.</p><p id="3f958489-d681-804b-853f-c807e6c7d293" class="" dir="auto">‎</p><p id="3f958489-d681-80f5-a637-c15dba48d233" class="" dir="auto">the difference?</p><p id="3f958489-d681-80b8-bb31-c9dffe04b5df" class="" dir="auto">the ones on autopilot don’t know about the mountain.</p><p id="3f958489-d681-802c-9810-efd60e01be8c" class="" dir="auto">‎</p><p id="3f958489-d681-80bf-8dd3-c0c63afdcf9a" class="" dir="auto">‎</p><p id="3f958489-d681-80ea-a32f-eb931f5bd6fa" class="" dir="auto">‎</p><h2 id="3f958489-d681-809f-bede-e314410ab80d" class="" dir="auto">the mountain</h2><p id="3f958489-d681-80d7-89ce-eb79dc209c05" class="" dir="auto">to understand habits, you have to understand the subconscious.</p><p id="3f958489-d681-80d3-bb6f-f96ab65524f1" class="" dir="auto">to understand the subconscious — you gotta meet <em>the mountain.</em></p><p id="3f958489-d681-8085-a632-e1ab612487a2" class="" dir="auto">‎</p><p id="3f958489-d681-80ff-9f4b-f9d5561fb151" class="" dir="auto">think of a huge mountain, buried in snow.</p><p id="3f958489-d681-80e6-b5f2-cfa805b4f04d" class="" dir="auto">this is your mind.</p><p id="3f958489-d681-802f-be0c-e48db8436faa" class="" dir="auto">‎</p><p id="3f958489-d681-8040-b2c3-e0051d3e6661" class="" dir="auto">now imagine a snowboarder shredding down the peak.</p><p id="3f958489-d681-8020-95b2-e550ecb98987" class="" dir="auto">this is you doing something.</p><p id="3f958489-d681-8031-a7f2-d57a3a2769fb" class="" dir="auto">‎</p><p id="3f958489-d681-80e3-9f57-d1281eb50938" class="" dir="auto">every time you do something, a 133% sicker version of you shreds down the mountain and leaves behind a path.</p><p id="3f958489-d681-804b-b7b7-c5562beba565" class="" dir="auto">‎</p><p id="3f958489-d681-8019-b45a-d585fe9ffb88" class="" dir="auto">what you did and how you did it determines the shape of this path.</p><p id="3f958489-d681-808d-bb50-f08a4f397b16" class="" dir="auto">‎</p><p id="3f958489-d681-8043-90fe-d426126d8c1d" class="" dir="auto">like forming a habit — one ride doesn&#x27;t leave a deep path.</p><p id="3f958489-d681-801b-9f67-ed32f5d56ef6" class="" dir="auto">go down often enough though — and the path carves itself.</p><p id="3f958489-d681-802f-9f39-fd4540906063" class="" dir="auto">‎</p><p id="3f958489-d681-8028-9879-d1513161a864" class="" dir="auto"><strong>in fact, a path can get so deep that it becomes hard</strong> <em><strong>not</strong></em> <strong>to follow it.</strong></p><p id="3f958489-d681-8010-8599-f07965b0877a" class="" dir="auto"><strong>crossing a deep path like this often leads to getting stuck in it — instead of just a partial overlap.</strong></p><p id="3f958489-d681-8079-a983-c89256a5fdcc" class="" dir="auto">‎</p><p id="3f958489-d681-8074-a706-fa75225e36a9" class="" dir="auto"><em>&quot;every time i act, i&#x27;m carving a new path — or deepening an old one.</em></p><p id="3f958489-d681-8010-8183-cfc432c2b5f2" class="" dir="auto"><em>now what?&quot;‎</em></p><p id="3f958489-d681-804f-ad4b-ecf244efab6d" class="" dir="auto">‎</p><p id="3f958489-d681-8065-ae46-e5fd3ba2bc96" class="" dir="auto">‎</p><p id="3f958489-d681-8015-a3f8-fb6556c6dfdc" class="" dir="auto">‎</p><h2 id="3f958489-d681-8019-8db2-e60e881c9120" class="" dir="auto">finding your path</h2><p id="3f958489-d681-8019-8d2b-ff2e76fcc752" class="" dir="auto">building a new habit? you&#x27;re on fresh snow.</p><p id="3f958489-d681-8029-990d-ea706fc244f3" class="" dir="auto">no path to follow. too many to avoid.</p><p id="3f958489-d681-8060-b49f-f74ef27c94c1" class="" dir="auto">‎</p><p id="3f958489-d681-8097-9208-ead8470c0f49" class="" dir="auto">lose focus — and you&#x27;ll easily fall back into default mode.</p><p id="3f958489-d681-80f3-8e56-e701f111adc2" class="" dir="auto">‎</p><p id="3f958489-d681-8081-b433-d69f820e2408" class="" dir="auto"><strong>so how do you know which path is the one?</strong></p><p id="3f958489-d681-807a-b9b2-c1f4086a5cea" class="" dir="auto">‎</p><p id="3f958489-d681-8069-b158-ca90e7ff1748" class="" dir="auto">habits live in different areas of the mountain.</p><p id="3f958489-d681-8078-ad82-e98901f7b270" class="" dir="auto">on day one, you&#x27;re not following — you&#x27;re locating, visiting, and carving a new route.</p><p id="3f958489-d681-80ba-bbc0-d83d3ae4cc6f" class="" dir="auto">‎</p><p id="3f958489-d681-8081-87e0-de4a816644f4" class="" dir="auto">your first path is gonna be ass — you&#x27;re still learning.</p><p id="3f958489-d681-80fc-a366-f9e437c1508e" class="" dir="auto">your next runs will be cleaner — deepening a trail that’s easy to follow.</p><p id="3f958489-d681-8004-a8db-d0dae3ebac77" class="" dir="auto">until it&#x27;s so deep — the snow remembers for you.</p><p id="3f958489-d681-8052-9c21-f5294c2ed4f4" class="" dir="auto">‎</p><p id="3f958489-d681-8066-9cf8-fbf6dd63b089" class="" dir="auto">the mountain is hard to navigate. everything&#x27;s white.</p><p id="3f958489-d681-808d-8f49-cd5d84389749" class="" dir="auto">grown man in sandals, tube socks &amp; zero shame type of white.</p><p id="3f958489-d681-8090-b569-de7b43e9be61" class="" dir="auto">‎</p><p id="3f958489-d681-80e0-8a90-d4ce69489a05" class="" dir="auto">hard doesn’t mean impossible though.</p><p id="3f958489-d681-8027-a994-ee2688824a5c" class="" dir="auto">with experience we start to remember more details.</p><p id="3f958489-d681-8010-ae44-c62ca66902cc" class="" dir="auto">‎</p><p id="3f958489-d681-80f7-8f8c-ed1f44a4308a" class="" dir="auto">you recognize landmarks near each <em>&quot;habit area&quot;</em> and use these as waypoints.</p><p id="3f958489-d681-804d-90a7-ffc1439222e8" class="" dir="auto">‎</p><p id="3f958489-d681-8023-84fd-cb594472a732" class="" dir="auto"><em>&quot;if you see the big pine, you know you&#x27;re close to area one.&quot;</em></p><p id="3f958489-d681-805f-a18a-f3ec826e38e1" class="" dir="auto">‎</p><p id="3f958489-d681-803e-b5a9-ccddf0c9868b" class="" dir="auto">these waypoints aren’t just how you find your way.</p><p id="3f958489-d681-807e-b6d6-d6ee5ac15c2e" class="" dir="auto">they eventually do the work for you.</p><p id="3f958489-d681-80d8-87f6-f61b0c276753" class="" dir="auto">‎</p><p id="3f958489-d681-8083-b945-d8e6d4ecf9a2" class="" dir="auto">‎</p><p id="3f958489-d681-8055-b1e3-e56145f25c27" class="" dir="auto">‎</p><h2 id="3f958489-d681-8057-92ab-c892a18a758c" class="" dir="auto">the funnel effect</h2><p id="3f958489-d681-806b-b1c5-e667d3c562c6" class="" dir="auto">every time you pass the pine tree and hit area one, the path gets deeper.</p><p id="3f958489-d681-807f-b79d-cafcbe03e4d6" class="" dir="auto">after a while — the pine becomes a funnel to that area.</p><p id="3f958489-d681-807f-8417-e711d75bf567" class="" dir="auto">‎</p><p id="3f958489-d681-8065-b59f-d594104565bd" class="" dir="auto">get close — and you&#x27;ll feel it.</p><p id="3f958489-d681-802b-8997-e50dee4c0228" class="" dir="auto">unless you actively steer away, you get sucked in.</p><p id="3f958489-d681-80b5-9ebf-efb28d6adb00" class="" dir="auto">the deeper the path, the easier to follow — harder to avoid.</p><p id="3f958489-d681-80a9-aea7-d1d1469c0b81" class="" dir="auto">‎</p><p id="3f958489-d681-80fe-87d8-e2c666be5793" class="" dir="auto">same goes for funnels.</p><p id="3f958489-d681-8000-be10-e87df0ece193" class="" dir="auto">‎</p><p id="3f958489-d681-8042-aa47-eb47d55158e9" class="" dir="auto">if a funnel doesn&#x27;t serve you,</p><p id="3f958489-d681-80a5-8702-fa03c0aa698e" class="" dir="auto">it&#x27;s a big pain in the ass to deal with.</p><p id="3f958489-d681-80b9-ad0d-cb9fdd1e1805" class="" dir="auto">‎</p><p id="3f958489-d681-80e7-8609-dcf96a5856e2" class="" dir="auto">it&#x27;s pushing you from every angle —</p><p id="3f958489-d681-804e-9d4a-f871fa4f62f1" class="" dir="auto">straight to the habit area.</p><p id="3f958489-d681-80fc-b89d-c744d03da2f0" class="" dir="auto">‎</p><p id="3f958489-d681-80bb-8be0-f9f74acf19ef" class="" dir="auto">this is why you open up socials on your phone before even realizing it.</p><p id="3f958489-d681-8041-ac94-f480d9287c83" class="" dir="auto">every single path around your phone funnels to doomscrolling if you&#x27;re not careful.</p><p id="3f958489-d681-8041-ae94-ce31950b244f" class="" dir="auto">‎</p><p id="3f958489-d681-8028-8e30-e58f02ffb85f" class="" dir="auto">not only did you carve that path a ridiculous amount of times.</p><p id="3f958489-d681-8043-bf12-c46a8c54076b" class="" dir="auto">each carve did more damage than usual.</p><p id="3f958489-d681-80d4-b250-d4d1e53aee40" class="" dir="auto">‎</p><p id="3f958489-d681-8039-a1bb-cd1cf8160329" class="" dir="auto">you’ll see why once we bring emotion into the mix.‎</p><p id="3f958489-d681-8003-9257-d3dd8c154a9d" class="" dir="auto">‎</p><p id="3f958489-d681-803e-af34-c0e809f61883" class="" dir="auto">‎</p><p id="3f958489-d681-8006-a36c-ca91dd0d8ee8" class="" dir="auto">‎</p><h2 id="3f958489-d681-80ca-ae24-d9596a2b118c" class="" dir="auto">emotional weight</h2><p id="3f958489-d681-80a9-9351-c799dfd7905f" class="" dir="auto">we’re emotional beings, so it only makes sense that emotion plays a big role here.</p><p id="3f958489-d681-8031-8752-c87109579253" class="" dir="auto">emotions amplify any path we carve — good or bad.</p><p id="3f958489-d681-8067-9fe3-eb3bef1bad51" class="" dir="auto">‎</p><p id="3f958489-d681-8050-9339-ff633e0a16df" class="" dir="auto">‎the more emotional the run — the heavier the rider.</p><p id="3f958489-d681-80a2-b5ae-d927aaa3ce60" class="" dir="auto">every path gets deepened way faster.</p><p id="3f958489-d681-80bd-89bf-ef63ba174a29" class="" dir="auto">‎</p><p id="3f958489-d681-80b5-961d-cc3f8436a4ac" class="" dir="auto">normally it takes a few runs to get a clean path.</p><p id="3f958489-d681-801f-a0f3-f1ada4971879" class="" dir="auto">now it only takes one.</p><p id="3f958489-d681-8009-b60f-ddf899f0efc0" class="" dir="auto">‎</p><p id="3f958489-d681-8061-9cfe-ce5b4f55209d" class="" dir="auto">a few rejections — and someone makes a habit of self-doubt.</p><p id="3f958489-d681-805b-9883-e3206b77f67d" class="" dir="auto">one trauma — and life changes forever.</p><p id="3f958489-d681-8040-831b-d0377ca281c8" class="" dir="auto">‎</p><p id="3f958489-d681-808d-aefb-f17eefedd457" class="" dir="auto">the same applies to dopamine</p><p id="3f958489-d681-80a4-93b5-ed824d2ca44c" class="" dir="auto">or anything else that completely captures your attention.</p><p id="3f958489-d681-8027-bb87-d7d25b1e4812" class="" dir="auto">‎</p><p id="3f958489-d681-80bf-b28c-eaaac39031a9" class="" dir="auto">every action carries more weight in the neural path creation.</p><p id="3f958489-d681-804f-b828-ff0cef8205b2" class="" dir="auto">loops are created without any effort.</p><p id="3f958489-d681-807c-af10-e3ca931c06bb" class="" dir="auto">‎</p><p id="3f958489-d681-80d5-9763-d9b3c9589458" class="" dir="auto">scroll for memes</p><p id="3f958489-d681-8084-a932-d0ab76a3cb55" class="" dir="auto">→ dopamine release</p><p id="3f958489-d681-80ed-8f39-e32bf4b6c48d" class="" dir="auto">→ sick version of you becomes heavy</p><p id="3f958489-d681-80da-bb9f-f03c84f56cea" class="" dir="auto">→ leaves deeper path</p><p id="3f958489-d681-8094-abb6-e6389cfc7964" class="" dir="auto">→ gets stuck in it more</p><p id="3f958489-d681-80f8-8daf-d5c855863a4a" class="" dir="auto">→ repeat</p><p id="3f958489-d681-80c6-ba3f-c0be01c90d6b" class="" dir="auto">‎</p><p id="3f958489-d681-80d8-b068-e19eae3f406b" class="" dir="auto">now that we met <em>the mountain</em> —</p><p id="3f958489-d681-80ae-a208-db445773d714" class="" dir="auto">let&#x27;s rip some peaks.</p><p id="3f958489-d681-80dd-b6a3-c72df871ce6a" class="" dir="auto">‎</p><p id="3f958489-d681-8078-93d1-ee65160df56a" class="" dir="auto">‎‎</p><p id="3f958489-d681-8096-beee-dda629c3d72f" class="" dir="auto">‎</p><h2 id="3f958489-d681-801d-a333-d7f541a8de44" class="" dir="auto">how to shred</h2><p id="3f958489-d681-806d-a10d-e53c9aeb4e99" class="" dir="auto">let&#x27;s check all our gear before we hit the slopes.</p><p id="3f958489-d681-805c-a453-e894c7f79fdc" class="" dir="auto">quick recap — remind you what we&#x27;re working with:</p><p id="3f958489-d681-8037-a538-ed59774337c8" class="" dir="auto">‎</p><ul id="3f958489-d681-8088-85e0-e24b5d07c413" class="bulleted-list" dir="auto"><li style="list-style-type:disc">your subconscious is a snowy mountain</li></ul><ul id="3f958489-d681-801f-b973-fd83af66c9de" class="bulleted-list" dir="auto"><li style="list-style-type:disc">every action = path carved</li></ul><ul id="3f958489-d681-803b-9c14-c7cd1a468d99" class="bulleted-list" dir="auto"><li style="list-style-type:disc">repetition &amp; emotion = deepening paths</li></ul><ul id="3f958489-d681-807f-bbc3-e7d5526daa8b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">deep path = easy to follow, hard to avoid</li></ul><ul id="3f958489-d681-80c0-859f-f99649ea65b0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">landmarks (waypoints) are how you navigate</li></ul><ul id="3f958489-d681-80d0-881e-e8b53ca1e9b7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">path cross-overs at waypoints act as funnels</li></ul><p id="3f958489-d681-8030-a37c-f1f0c5347419" class="" dir="auto">
+</p><p id="3f958489-d681-8024-8c04-df961ba210e2" class="" dir="auto">how do we adjust?</p><p id="3f958489-d681-804b-b72f-e3b6f783ca79" class="" dir="auto">
+</p><h3 id="3f958489-d681-802e-8b6c-c4af048590a2" class="" dir="auto"><strong>path escape</strong></h3><p id="3f958489-d681-8040-a7bf-d409457f9b5d" class="" dir="auto">if you ruined your mountain — it doesn&#x27;t mean you are.</p><p id="3f958489-d681-808e-a771-eadc31e4005a" class="" dir="auto">the snowboarder only stays stuck in paths when you’re not conscious.</p><p id="3f958489-d681-80bc-badb-f82fc34b4832" class="" dir="auto">stay awake — go anywhere you want.</p><p id="3f958489-d681-802d-92a2-fa14b734abf0" class="" dir="auto">‎</p><p id="3f958489-d681-80b2-b12c-d7074190fbf6" class="" dir="auto">i said escaping was &quot;hard&quot; —</p><p id="3f958489-d681-8072-a6d6-e8b521206ece" class="" dir="auto">but in reality, that only means more discomfort.</p><p id="3f958489-d681-80bd-afdc-def71669bcde" class="" dir="auto">you just have to put up with more mental bitching.</p><p id="3f958489-d681-80ca-82f6-ceba6809be4f" class="" dir="auto">‎</p><p id="3f958489-d681-800a-857a-f5122807f0a3" class="" dir="auto">with clarity you realize every path is emotional.</p><p id="3f958489-d681-8027-b490-f56eb97d3265" class="" dir="auto">you are always free to override them.</p><p id="3f958489-d681-802e-8198-e591da882ec9" class="" dir="auto">‎</p><p id="3f958489-d681-80eb-8c68-f601c9030472" class="" dir="auto">‎</p><p id="3f958489-d681-80c5-a449-da7892ad4c6c" class="" dir="auto">‎</p><h3 id="3f958489-d681-8091-8032-ee24bb00f93a" class="" dir="auto"><strong>changing course</strong></h3><p id="3f958489-d681-8044-9010-e45086065414" class="" dir="auto">whether you want to change old habits or create new ones — same thing.</p><p id="3f958489-d681-800b-bcf6-d6e844518212" class="" dir="auto">lock in discipline early. use emotion. use waypoints.</p><p id="3f958489-d681-80a1-9016-ce3601f046b7" class="" dir="auto">‎</p><p id="3f958489-d681-80fa-9290-f4caa9e5d3cf" class="" dir="auto">actually, use waypoints that haven’t been used before.</p><p id="3f958489-d681-808b-9fbd-d87606f6b0e0" class="" dir="auto">if you wanna take up reading — do it in a spot you never sit in.</p><p id="3f958489-d681-80f8-860d-e6beaf851a66" class="" dir="auto">this way every trail leading to that chair? leads to books instead of screens.</p><p id="3f958489-d681-80a0-9a3f-f41037b9ebd9" class="" dir="auto">‎</p><p id="3f958489-d681-808f-b7de-c61e4f220e37" class="" dir="auto">claim a corner of the mountain.</p><p id="3f958489-d681-8027-acf1-dd4587c35690" class="" dir="auto">train your brain to link <em>&quot;this spot&quot;</em> to <em>&quot;this path&quot;</em>.</p><p id="3f958489-d681-804d-b1c7-c6ab14579478" class="" dir="auto">‎</p><p id="3f958489-d681-8085-9600-ebb8c43116d1" class="" dir="auto">add to it.</p><p id="3f958489-d681-80f3-86be-f2ce16ec977c" class="" dir="auto">create funnels.</p><p id="3f958489-d681-807a-b5b5-eab371b28786" class="" dir="auto">let your environment do the work for you.</p><p id="3f958489-d681-8099-878e-d3baf5268a00" class="" dir="auto">‎</p><p id="3f958489-d681-806e-9500-d51fa1c7ef99" class="" dir="auto">‎completely changing your environment is really powerful too.</p><p id="3f958489-d681-803c-b83c-de297cd9697e" class="" dir="auto">all this fresh snow — unaffected by the old you.</p><p id="3f958489-d681-80bf-bf4b-e3d010c02c54" class="" dir="auto">‎</p><p id="3f958489-d681-8060-b25f-e1dd92bd094f" class="" dir="auto">even if you already have paths somewhere — just stay conscious.</p><p id="3f958489-d681-8062-8847-c7de06fbd256" class="" dir="auto">‎‎</p><p id="3f958489-d681-80f3-9b4f-c7ae612cb2b2" class="" dir="auto">cross them.</p><p id="3f958489-d681-80d0-8427-e830cad38817" class="" dir="auto">paint over them.</p><p id="3f958489-d681-80df-82ac-fc413b272214" class="" dir="auto">be consistent.</p><p id="3f958489-d681-805d-badc-eaf1db23a81d" class="" dir="auto">‎‎</p><p id="3f958489-d681-80ef-aa3e-d59bdec12a80" class="" dir="auto">before you know it you&#x27;re a whole new person.</p><p id="3f958489-d681-8087-bd7a-f32327c25734" class="" dir="auto">‎</p><p id="3f958489-d681-80f7-960a-d3c5c999124f" class="" dir="auto">trying to remove old paths doesn’t work.</p><p id="3f958489-d681-8021-ab3f-ca7b9b84d865" class="" dir="auto">all you can do is paint new ones over them.</p><p id="3f958489-d681-8043-a277-ce5d4eea0628" class="" dir="auto">‎</p><p id="3f958489-d681-80b3-bd69-efa717dddcc3" class="" dir="auto">that&#x27;s why people fail when trying to abstain from vices without adding virtues.</p><p id="3f958489-d681-80b8-aa74-f1f5f67334c1" class="" dir="auto">‎‎</p><p id="3f958489-d681-8041-859d-d2aef89215b6" class="" dir="auto">‎</p><p id="3f958489-d681-807a-ab2d-c47f38cb079d" class="" dir="auto">‎</p><h3 id="3f958489-d681-80e9-8ee5-c392ffb51eef" class="" dir="auto">expert level</h3><p id="3f958489-d681-80d9-abd3-d76c4470afe1" class="" dir="auto">this last part is only for the truly passionate riders.</p><p id="3f958489-d681-80cc-9e09-c5cf52a0f400" class="" dir="auto">the ones that wanna optimize their subconscious.</p><p id="3f958489-d681-80a3-84ec-fbb9060fb4cf" class="" dir="auto">‎‎</p><p id="3f958489-d681-8081-a9f5-ff5f928d93b0" class="" dir="auto">when learning a skill — you’re essentially carving a new path too.</p><p id="3f958489-d681-80dd-b941-f5230010a3c2" class="" dir="auto">works the exact same way.</p><p id="3f958489-d681-8021-afc1-ecabb6cf1822" class="" dir="auto">‎</p><p id="3f958489-d681-8049-a01c-ffe0165fb5e2" class="" dir="auto">you wanna make it as easy as possible to perform well —</p><p id="3f958489-d681-807f-a974-f564cc3b2e84" class="" dir="auto">to follow the right path.</p><p id="3f958489-d681-809b-a09a-d13350d6331a" class="" dir="auto">‎</p><p id="3f958489-d681-807a-aa1f-d4d26fe92170" class="" dir="auto">so when you learn a new skill:</p><p id="3f958489-d681-8092-a223-cb06e51fc0d0" class="" dir="auto">‎</p><p id="3f958489-d681-801e-822a-cf65cc9f7037" class="" dir="auto">iterate.</p><p id="3f958489-d681-80dd-af4b-cef787375918" class="" dir="auto">add variation.</p><p id="3f958489-d681-80cf-a532-d1673466018a" class="" dir="auto">start from the wrong position.</p><p id="3f958489-d681-8014-9cb9-ee7ff3bb71fc" class="" dir="auto">‎</p><p id="3f958489-d681-80c0-add5-c07b121b3b8b" class="" dir="auto">this makes the new path wider — more robust, easier to follow.</p><p id="3f958489-d681-80f3-ac99-d32b55a67df2" class="" dir="auto">‎</p><p id="3f958489-d681-802f-9522-d1ba9c1a9234" class="" dir="auto">if you only score from a certain angle, you can struggle to recreate that angle every time.</p><p id="3f958489-d681-8001-a27d-cedb7d820c2f" class="" dir="auto">or you just learn to score from multiple angles — and actually learn what it means to aim.</p><p id="3f958489-d681-80ae-bdda-c0459c53bc45" class="" dir="auto">‎</p><p id="3f958489-d681-80f8-b303-d2917d19359f" class="" dir="auto">habits, skills, memories, personality, identity, they all work the same.</p><p id="3f958489-d681-805c-a0b8-f5a8e6da91c6" class="" dir="auto">‎</p><p id="3f958489-d681-80a4-bd60-e8866d2e7030" class="" dir="auto">the most effective way to change is using repetition &amp; emotion.</p><p id="3f958489-d681-800e-98f9-cd1fc5879fad" class="" dir="auto">the most robust change comes from wide paths and smart waypoints.</p><p id="3f958489-d681-806e-bc12-f7599fabc6be" class="" dir="auto">‎</p><p id="3f958489-d681-8079-b581-dd990a85e465" class="" dir="auto">now go carve something worth shredding.</p><p id="3f958489-d681-80fd-a0c6-ef2c1da07729" class="" dir="auto">‎a 133% sicker version of your life is waiting.‎</p><p id="3f958489-d681-805f-9ba3-f90ab1bdbd5f" class="" dir="auto">‎</p></div></aside><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-background="gray_background" style="white-space:pre-wrap;display:flex" id="3f958489-d681-8070-a254-f138ecc027f8" dir="ltr"><div style="width:100%"><p id="3f958489-d681-80a5-ba99-f523f761cb4b" class="" dir="auto">
+</p></div></aside></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

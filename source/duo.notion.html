@@ -1,0 +1,838 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>duo</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f858489-d681-8081-8436-f6987fbe5fc2" class="page sans"><header><h1 class="page-title" dir="auto">duo</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-background="gray_background" style="white-space:pre-wrap;display:flex" id="3f858489-d681-809c-9655-cb0328138603" dir="ltr"><div style="width:100%"><p id="3f858489-d681-801c-a07b-e3c7ee5cfb27" class="" dir="auto">can you find him?</p></div></aside><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-background="gray_background" style="white-space:pre-wrap;display:flex" id="3f858489-d681-806f-9d5d-c25d742312b7" dir="ltr"><div style="width:100%"><p id="3f858489-d681-804d-b9b8-e60676b61d54" class="" dir="auto">
+</p></div></aside><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-background="gray_background" style="white-space:pre-wrap;display:flex" id="3f858489-d681-80ca-a210-d88f23a93297" dir="ltr"><div style="width:100%"><p id="3f858489-d681-801a-93d6-ff06ce958278" class="" dir="auto">it was cold, ice cold.</p><p id="3f858489-d681-8064-9a9a-c4d16fec6a8b" class="" dir="auto">the sky was surprisingly clear for a december night.</p><p id="3f858489-d681-8062-bfcc-fd14ee1fe7b6" class="" dir="auto">
+</p><p id="3f858489-d681-800a-9ce1-c6b6046ad9c6" class="" dir="auto">some spots on the red brick road still wet, reflecting the moon.</p><p id="3f858489-d681-80b3-b479-e3b1c37a83d7" class="" dir="auto">two people sat on a rooftop, overlooking flickering streetlights.</p><p id="3f858489-d681-806c-a7b6-c0b132fd1cc0" class="" dir="auto">one of them bathing in moonlight, the other in his shadow.</p><p id="3f858489-d681-8086-8d38-eb8d719f5813" class="" dir="auto">
+</p><p id="3f858489-d681-80cb-b021-cf948113750b" class="" dir="auto">one of them spoke, the other always listening in silence.</p><p id="3f858489-d681-80b7-9e62-c3f4be130ea3" class="" dir="auto">both knew: that night － at least one of them would die.</p><p id="3f858489-d681-80dc-8f06-e665b917bb2b" class="" dir="auto">
+</p><p id="3f858489-d681-8055-842d-d5738e772a8f" class="" dir="auto">their relationship was odd: they did everything together,</p><p id="3f858489-d681-808f-a4c8-f81ea78b9c69" class="" dir="auto">but the one who spoke clearly hated the quiet one.</p><p id="3f858489-d681-80ea-b412-dd907450af2b" class="" dir="auto">at least, that&#x27;s what it seemed like.</p><p id="3f858489-d681-8080-a02b-e962471d2a44" class="" dir="auto">
+</p><p id="3f858489-d681-804f-b64b-f9abb6170d31" class="" dir="auto"><em>&quot;are you fucking dumb?</em></p><p id="3f858489-d681-80f1-a5a3-d9400acf74c0" class="" dir="auto"><em>i knew you&#x27;d fuck up again.</em></p><p id="3f858489-d681-80a6-ad45-fc88017324ed" class="" dir="auto"><em>what did you expect?&quot;</em></p><p id="3f858489-d681-8029-9fac-d172073d00bd" class="" dir="auto">
+</p><p id="3f858489-d681-80d3-a1fe-e8cf4895f97a" class="" dir="auto">the quiet one never really pushed back, how could he?</p><p id="3f858489-d681-801f-909d-c4cc2fbde719" class="" dir="auto">the speaker spoke so much, because he knew.</p><p id="3f858489-d681-801f-a41e-d98d24f31b7b" class="" dir="auto">
+</p><p id="3f858489-d681-8081-a635-c693440c9768" class="" dir="auto">how life worked.</p><p id="3f858489-d681-8065-a604-f84dedf22579" class="" dir="auto">how the world worked.</p><p id="3f858489-d681-80fe-b97b-c295835cec22" class="" dir="auto">what happens next.</p><p id="3f858489-d681-80f3-ba1f-f2bddcde64ad" class="" dir="auto">
+</p><p id="3f858489-d681-807d-9af4-d9b7797d2bcf" class="" dir="auto">the speaker was right about almost everything.</p><p id="3f858489-d681-8056-a158-c7f93bca04e2" class="" dir="auto">he never failed to predict when shit went south.</p><p id="3f858489-d681-80a0-9308-c37479769bc6" class="" dir="auto">and all his arguments were rock solid.</p><p id="3f858489-d681-8040-a313-ec6183c1ed77" class="" dir="auto">
+</p><p id="3f858489-d681-80ed-9290-f4622b9d3772" class="" dir="auto">it only made sense he was the tour guide of their life together.</p><p id="3f858489-d681-8039-ba26-c326aa64b6e4" class="" dir="auto">he&#x27;d pick the next destination and showcase his wisdom by</p><p id="3f858489-d681-8023-b73b-ecf3f37a455e" class="" dir="auto">laying out every reason why this specific choice was best.</p><p id="3f858489-d681-8014-87e0-f19751e57f2f" class="" dir="auto">
+</p><p id="3f858489-d681-808a-884e-f705a7d6b820" class="" dir="auto">this time he decided:</p><p id="3f858489-d681-80ee-ad7e-f16032b92575" class="" dir="auto">&quot;if this is all there is to life, better to end it now.&quot;</p><p id="3f858489-d681-8079-b1fd-f50e7ae8ea72" class="" dir="auto">
+</p><p id="3f858489-d681-808b-a2ef-d856e69ceb9e" class="" dir="auto">...</p><p id="3f858489-d681-806e-b18e-f889519c1a1f" class="" dir="auto"><em>&quot;what?&quot;</em></p><p id="3f858489-d681-80ed-9cbd-d2cc7466d212" class="" dir="auto">
+</p><p id="3f858489-d681-801e-843c-f21a965486c1" class="" dir="auto">even the quiet one couldn&#x27;t help but make a sound.</p><p id="3f858489-d681-8025-8c26-c5fc2c1f0419" class="" dir="auto"><em>&quot;we quit? ju- just like that?&quot;</em>, racing through him,</p><p id="3f858489-d681-80bf-a119-d7a0788d6346" class="" dir="auto">choking on the shortest breath he&#x27;d ever taken.</p><p id="3f858489-d681-80cb-b026-cae6a07779c1" class="" dir="auto">
+</p><p id="3f858489-d681-8027-a0d6-ebd0a2793177" class="" dir="auto">they stood on the edge of the roof overlooking the quiet street.</p><p id="3f858489-d681-80d2-9dc3-df4f5604c3a9" class="" dir="auto">it was a long way down, but short enough for possible survival.</p><p id="3f858489-d681-8081-a247-cf81b57a3b9e" class="" dir="auto">
+</p><p id="3f858489-d681-8001-a9d3-d443cdc43aed" class="" dir="auto"><em>&quot;what if my neck breaks but i live?</em></p><p id="3f858489-d681-80a8-a349-c6aaaeb66c48" class="" dir="auto"><em>could i handle the pain?</em></p><p id="3f858489-d681-8025-94f0-d346389812f8" class="" dir="auto"><em>what about my mom?</em></p><p id="3f858489-d681-80eb-b5a7-d999346ecaeb" class="" dir="auto">
+</p><p id="3f858489-d681-8069-a3dc-fd74f7c76b82" class="" dir="auto"><em>my brothers?</em></p><p id="3f858489-d681-80f0-a89b-c343e72a8bb1" class="" dir="auto"><em>my friends?</em></p><p id="3f858489-d681-80f8-8f88-cf7ee1e95eea" class="" dir="auto"><em>i don&#x27;t －</em></p><p id="3f858489-d681-8022-88c5-da6a5477e73e" class="" dir="auto">
+</p><p id="3f858489-d681-8038-9724-f535baf6bf25" class="" dir="auto"><em><strong>i can&#x27;t.</strong></em></p><p id="3f858489-d681-8051-8ada-d9b81826c4c8" class="" dir="auto">
+</p><p id="3f858489-d681-80ae-b59f-ec7a174840a8" class="" dir="auto"><em>i can&#x27;t hurt them.&quot;</em></p><p id="3f858489-d681-808c-ab50-dd044816c6a5" class="" dir="auto">he concluded definitively.</p><p id="3f858489-d681-8026-abfc-cd632a9b20c6" class="" dir="auto">
+</p><p id="3f858489-d681-8016-a164-f706741eeee7" class="" dir="auto">this was one of those special moments.</p><p id="3f858489-d681-80cc-b003-d0cf0c03875d" class="" dir="auto">when a different lifeline peeks above the horizon.</p><p id="3f858489-d681-80cd-91dd-f368a75e5b1d" class="" dir="auto">he never considered going against the speaker before.</p><p id="3f858489-d681-80f9-a7b7-dcab8abbec43" class="" dir="auto">
+</p><p id="3f858489-d681-801e-af18-d56c3909dfa6" class="" dir="auto">anxiety started boiling between his lungs.</p><p id="3f858489-d681-800e-ae8a-cc9f76adee54" class="" dir="auto">slowly it crept upward, reaching his throat now.</p><p id="3f858489-d681-80eb-8153-ff191636b044" class="" dir="auto">
+</p><p id="3f858489-d681-80c7-a158-daf2f67f33ee" class="" dir="auto">his brain was shaking.</p><p id="3f858489-d681-801d-a496-d55004c914dd" class="" dir="auto">eyes growing wide.</p><p id="3f858489-d681-80f0-9e47-f6fb5ded5cc9" class="" dir="auto">jaw clenched.</p><p id="3f858489-d681-80ee-83ee-dc77accb8846" class="" dir="auto">
+</p><p id="3f858489-d681-803a-9a93-d1a43febeb7c" class="" dir="auto"><em>&quot;am i really doing this?</em></p><p id="3f858489-d681-801e-959c-d8027cc110a6" class="" dir="auto"><em>what if i don&#x27;t know what to do?</em></p><p id="3f858489-d681-807b-ad43-f6aababa6a5c" class="" dir="auto"><em>who do i follow?</em></p><p id="3f858489-d681-805f-89fb-e164c84aca37" class="" dir="auto"><em>what if i get lost?</em></p><p id="3f858489-d681-8023-874e-eec39ced58ce" class="" dir="auto"><em>or stuck?&quot;</em></p><p id="3f858489-d681-8070-9bf4-fbd3bc10aa44" class="" dir="auto">
+</p><p id="3f858489-d681-8088-8045-f4276bcfb874" class="" dir="auto">click*;</p><p id="3f858489-d681-80f4-b6a6-e5f0e97eb776" class="" dir="auto">all the chaos calmed in an instant.</p><p id="3f858489-d681-8063-b4e6-faa414abf6d9" class="" dir="auto">like someone pressed pause on his life&#x27;s movie.</p><p id="3f858489-d681-809f-9b40-fa7dd34b38ad" class="" dir="auto">his relaxed breathing was the only movement in the whole universe.</p><p id="3f858489-d681-805e-a407-c29d16db4cd8" class="" dir="auto">
+</p><p id="3f858489-d681-802b-94f8-f5f90889ef79" class="" dir="auto">he couldn&#x27;t help but chuckle.</p><p id="3f858489-d681-803f-80e3-e494f030af9c" class="" dir="auto">the more he thought about it, the more he cracked himself up.</p><p id="3f858489-d681-8017-8a2c-d5dc5f20636b" class="" dir="auto">
+</p><p id="3f858489-d681-80c1-b9c7-edf2759609b3" class="" dir="auto">chuckles turned into uncontrollable smiling,</p><p id="3f858489-d681-8011-8561-d5bf8a850cbf" class="" dir="auto">finally breaking into hysterical laughter.</p><p id="3f858489-d681-8039-b70e-eb6ebd7242df" class="" dir="auto">the insane kind you see in movies.</p><p id="3f858489-d681-80e7-b663-dfb57a14439a" class="" dir="auto">
+</p><p id="3f858489-d681-80fc-8c10-e5e9b6aa959b" class="" dir="auto">the stomach ache landed him flat on his back.</p><p id="3f858489-d681-8077-9c9b-c7c62b68f8ea" class="" dir="auto">when he calmed down the stars appeared.</p><p id="3f858489-d681-809e-972b-f00f2b12f942" class="" dir="auto">he looked up decisively.</p><p id="3f858489-d681-802e-a6f3-d1fe2b92f560" class="" dir="auto">
+</p><p id="3f858489-d681-804e-add0-d2d6d0ef5526" class="" dir="auto"><em>&quot;i don&#x27;t need him.&quot;</em></p><p id="3f858489-d681-8060-a976-d78c46738a3f" class="" dir="auto">another chuckle escaped.</p><p id="3f858489-d681-80b8-aa09-e871aea0c5bd" class="" dir="auto">so small you could&#x27;ve mistaken it for a loud breath.</p><p id="3f858489-d681-806b-8531-ff8086e0bbdd" class="" dir="auto">
+</p><p id="3f858489-d681-8047-907b-feeac70a9308" class="" dir="auto"><em>&quot;it&#x27;s like my eyes are finally open,</em></p><p id="3f858489-d681-80e4-aa31-f2db935ba252" class="" dir="auto"><em>like all this time i played my role,</em></p><p id="3f858489-d681-80f1-995e-d8a85ba4c0ec" class="" dir="auto"><em>but now...</em></p><p id="3f858489-d681-8090-8408-da3685f9ac26" class="" dir="auto">
+</p><p id="3f858489-d681-80ee-8ea2-d85b3027e2e1" class="" dir="auto"><em>now i can see the screen!&quot;</em></p><p id="3f858489-d681-80f0-be9e-cb6e0810258f" class="" dir="auto">
+</p><p id="3f858489-d681-809a-9f4e-d1e45ca38847" class="" dir="auto">the speaker was still standing on the edge.</p><p id="3f858489-d681-809d-b1ab-e36a067a0ca8" class="" dir="auto"><em>&quot;oh, now what?&quot;</em> he exhaled, slightly annoyed,</p><p id="3f858489-d681-804f-bae1-eaab18d318f2" class="" dir="auto">giving him the most &quot;done with your shit&quot; look.</p><p id="3f858489-d681-807d-b047-ccd95231d0bb" class="" dir="auto">
+</p><p id="3f858489-d681-800f-9ed6-d1dfa42bd0d3" class="" dir="auto">filled with adrenaline he clenched his fists.</p><p id="3f858489-d681-801e-9b22-fde8dfc3baf1" class="" dir="auto">jaw even tighter than before, blood rushing through his temples.</p><p id="3f858489-d681-8071-82ae-c00b00962a0b" class="" dir="auto">
+</p><p id="3f858489-d681-8010-9948-ef66a54aa907" class="" dir="auto">&quot;<em>g-</em></p><p id="3f858489-d681-80f8-9f1d-e90ea447dbc6" class="" dir="auto"><em>g-</em></p><p id="3f858489-d681-8036-b06e-d465dcb748a2" class="" dir="auto"><em>go ahead i&#x27;m not jumping.&quot;</em>, shot out of his lungs.</p><p id="3f858489-d681-8083-b903-fabf269223be" class="" dir="auto">
+</p><p id="3f858489-d681-8000-a7d7-e2f63a620061" class="" dir="auto"><em>&quot;!?what do you mea－&quot;</em></p><p id="3f858489-d681-8094-b175-dc05a141cf6f" class="" dir="auto">
+</p><p id="3f858489-d681-80c9-b5c9-f9c713fe27a2" class="" dir="auto">before he could react,</p><p id="3f858489-d681-80e1-8f11-f4a07852676c" class="" dir="auto">the quiet one rushed to push him off the edge.</p><p id="3f858489-d681-801b-9b75-dece741f81f6" class="" dir="auto">
+</p><p id="3f858489-d681-80c5-8250-df955c8e4c83" class="" dir="auto">a loud thud shook his toes through his shoes,</p><p id="3f858489-d681-8025-9fba-cd3e2167dfff" class="" dir="auto">straight to his core.</p><p id="3f858489-d681-80dc-8c21-e3115b6e454e" class="" dir="auto">
+</p><p id="3f858489-d681-8053-a585-d5188e336409" class="" dir="auto">that&#x27;s when the courage and adrenaline turned to sadness.</p><p id="3f858489-d681-8052-9262-ddebbaa5db5c" class="" dir="auto">
+</p><p id="3f858489-d681-8059-8bf6-e6cc1cd06650" class="" dir="auto">he was absolutely certain the speaker was his biggest enemy,</p><p id="3f858489-d681-8081-9bd6-d60b7c912fb1" class="" dir="auto">but he was also the only one that always kept him company.</p><p id="3f858489-d681-80a4-a2b1-d2f9cda69b5f" class="" dir="auto">
+</p><p id="3f858489-d681-80b5-a5c5-f15aa3d7204a" class="" dir="auto"><em>&quot;i&#x27;ll give him a beautiful funeral.&quot;</em></p><p id="3f858489-d681-8004-b825-ed2795dc7238" class="" dir="auto">he concluded after sitting with the pain for an hour.</p><p id="3f858489-d681-8097-a1f0-ebf1fde86e44" class="" dir="auto">he walked down to collect his partner&#x27;s broken body.</p><p id="3f858489-d681-8033-a69d-f75da349076d" class="" dir="auto">
+</p><p id="3f858489-d681-801c-b4af-eddb1f381454" class="" dir="auto">when he finally dared to look, he looked away.</p><p id="3f858489-d681-80d2-b7be-fef352d0f00f" class="" dir="auto">away from the spot he took his last breath.</p><p id="3f858489-d681-8065-be96-d4f5126a93c5" class="" dir="auto">
+</p><p id="3f858489-d681-8033-993b-d35d62299aa9" class="" dir="auto">not because the image was too shocking,</p><p id="3f858489-d681-801f-b4bb-c30df4bc5050" class="" dir="auto">there was no image left to be seen.</p><p id="3f858489-d681-80e8-8470-eb056e9f0116" class="" dir="auto">
+</p><p id="3f858489-d681-803a-b442-cafe7414843c" class="" dir="auto">no body to be found.</p></div></aside><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-background="gray_background" style="white-space:pre-wrap;display:flex" id="3f858489-d681-8026-9719-e3e05e1bd22f" dir="ltr"><div style="width:100%"><p id="3f858489-d681-8048-a923-d21102c82a41" class="" dir="auto">
+</p></div></aside></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

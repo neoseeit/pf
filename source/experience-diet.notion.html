@@ -1,0 +1,811 @@
+<html><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><title>experience diet</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article class="page sans" id="3f858489-d681-80df-ae8b-f79d430193ae"><header><h1 class="page-title" dir="auto">experience diet</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-background="gray_background" dir="ltr" id="3f858489-d681-80cd-a3a2-f16e2c387254" style="white-space:pre-wrap;display:flex"><div style="width:100%"><p class="" dir="auto" id="3f858489-d681-806b-840f-c17f28dc112d">mixing profound ideas with rough language: anything can be over-consumed, causing under-appreciation of life in general</p></div></aside><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-background="gray_background" dir="ltr" id="3f858489-d681-806b-b418-c140fc8952c8" style="white-space:pre-wrap;display:flex"><div style="width:100%"><p class="" dir="auto" id="3f858489-d681-8098-a439-ee032a9bd39c">
+</p></div></aside><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-background="gray_background" dir="ltr" id="3f858489-d681-80f5-85aa-ffd1c8bec28d" style="white-space:pre-wrap;display:flex"><div style="width:100%"><p class="" dir="auto" id="3f858489-d681-800f-b70a-f17abd88fa7a">"what the fuck am i doing?"‎</p><p class="" dir="auto" id="3f858489-d681-8049-8fc2-e48980d69c89">‎</p><p class="" dir="auto" id="3f858489-d681-8010-b086-fa8d09a8b2ce">i thought, for the 300th time that week.</p><p class="" dir="auto" id="3f858489-d681-808f-a91f-f2766ad51487">another day waking up late, cuz life's too boring.</p><p class="" dir="auto" id="3f858489-d681-80fc-81dc-d15f01ebb46a">‎</p><p class="" dir="auto" id="3f858489-d681-8062-853f-e0acb603c430">i open my socials, check for notifications － but there's nothing.</p><p class="" dir="auto" id="3f858489-d681-8009-89db-c2b9117177e6">so i scroll the weather app, knowing damn well i ain't goin outside today.</p><p class="" dir="auto" id="3f858489-d681-808a-a39e-d881b07661e5">i light a cigarette － not cuz i want one, i just wanna feel <em>something.</em></p><p class="" dir="auto" id="3f858489-d681-8038-800b-da0a04242f5d">‎</p><p class="" dir="auto" id="3f858489-d681-800d-b46f-d42a6b81474b">meh.</p><p class="" dir="auto" id="3f858489-d681-80c0-b6ac-f1b2dddf6914">that's how i feel.</p><p class="" dir="auto" id="3f858489-d681-8049-9329-c4a7c71966e1">everything's just meh.</p><p class="" dir="auto" id="3f858489-d681-8050-a903-d7cb168f8302">‎</p><p class="" dir="auto" id="3f858489-d681-8018-be3d-f070b4f50026">i ran out of shows to binge.</p><p class="" dir="auto" id="3f858489-d681-805d-b5ab-f5bda5e40e20">so i'll just check Instagram reels for a minute.</p><p class="" dir="auto" id="3f858489-d681-8034-b35e-c6f22f4a3202">minutes turn to hours and i'm glued to the couch.</p><p class="" dir="auto" id="3f858489-d681-80d8-a88a-f1dca1759971">‎</p><p class="" dir="auto" id="3f858489-d681-8018-b9f4-c7a7ff19977c">part of me wants to get up － but that's too much of a hassle.</p><p class="" dir="auto" id="3f858489-d681-80c1-ae7e-ce8a27925cf0">‎</p><p class="" dir="auto" id="3f858489-d681-800e-b399-d62ad2ea77a2">i fucking hate feeling like this.</p><p class="" dir="auto" id="3f858489-d681-8046-bed2-fd2898ea98dc">i wanna do something, but i don't wanna do anything.</p><p class="" dir="auto" id="3f858489-d681-80ce-9a35-e5a502b2951b">i'm starving for adventure, connection, inspiration,</p><p class="" dir="auto" id="3f858489-d681-80e2-9f75-f3b12c5df1f6">‎</p><p class="" dir="auto" id="3f858489-d681-800e-ac92-da980e40b3a6">but there's no room left in my mind.</p><p class="" dir="auto" id="3f858489-d681-806f-b708-de2a55a624db">‎</p><p class="" dir="auto" id="3f858489-d681-80fe-9ddc-d8feb35beda9">like seeing your favorite meal on a full stomach:</p><p class="" dir="auto" id="3f858489-d681-806b-bc12-f832aec0531c">you know you love it － but it's making you sick just looking at it.</p><p class="" dir="auto" id="3f858489-d681-8080-bcd0-cd4e8e17394e">‎</p><p class="" dir="auto" id="3f858489-d681-8044-9878-e00567e14857">‎</p><p class="" dir="auto" id="3f858489-d681-80b2-b0ba-e03d447642e6">‎</p><h1 class="" dir="auto" id="3f858489-d681-8010-a470-e6f6b9e7088a">hunger‎</h1><p class="" dir="auto" id="3f858489-d681-8098-9ea6-ebcd3f557021">your mind works exactly like your stomach.</p><p class="" dir="auto" id="3f858489-d681-800f-9cc8-e96fa39a8dfb">instead of food, it feeds on experiences.</p><p class="" dir="auto" id="3f858489-d681-80f4-8a64-c6f1a09b5676">it gets hungry too.</p><p class="" dir="auto" id="3f858489-d681-80c0-b1fd-fc176d6e8084">‎</p><p class="" dir="auto" id="3f858489-d681-805a-b04f-cf881f85ed80">it craves more.</p><p class="" dir="auto" id="3f858489-d681-8091-b321-e7ed3d168184">either you digested everything and it's empty.</p><p class="" dir="auto" id="3f858489-d681-8012-a7b1-c5aa9ed71355">or there's some shit in there, but no nutrients.</p><p class="" dir="auto" id="3f858489-d681-8089-a212-ed7d6943d4ee">‎</p><p class="" dir="auto" id="3f858489-d681-8090-825d-d506a6bcfe66">let's look at the most popular dish today.</p><p class="" dir="auto" id="3f858489-d681-80ba-9414-f35eb85f70ee">swiping your finger over a glass rectangle.</p><p class="" dir="auto" id="3f858489-d681-808c-bd4b-c12e4d325dbd">‎ ‎</p><p class="" dir="auto" id="3f858489-d681-8081-8818-f4078c81f2a2">you're bored (aka hungry).</p><p class="" dir="auto" id="3f858489-d681-80e2-a2ab-ed36723f875f">‎</p><p class="" dir="auto" id="3f858489-d681-80f8-b5c0-e42fc333ce17">you spend 1-2 hours scrolling and…</p><p class="" dir="auto" id="3f858489-d681-809f-8d3f-d51454f99f69">nothing's changed － apart from a:</p><p class="" dir="auto" id="3f858489-d681-80b1-b490-cc39a3039335">stiff neck, dry eyes, low mood and a dent in your pinkie.</p><p class="" dir="auto" id="3f858489-d681-80ea-92ac-e6dd8c40c566">‎</p><p class="" dir="auto" id="3f858489-d681-807e-8c17-cc45fe19524f">you were filling up your stomach.</p><p class="" dir="auto" id="3f858489-d681-805d-8b5e-d0fb6be49931">but somehow it still left you unfulfilled.</p><p class="" dir="auto" id="3f858489-d681-804e-87ec-d943c82db88a">you were really craving nutrients, not just food.</p><p class="" dir="auto" id="3f858489-d681-8035-a61f-e23a6886b370">‎</p><p class="" dir="auto" id="3f858489-d681-8005-b519-e4210c693085"><strong>something that touches your soul － not the brain.</strong></p><p class="" dir="auto" id="3f858489-d681-804b-a619-d06ab8fff021">‎</p><p class="" dir="auto" id="3f858489-d681-804b-8383-d52faaa07f54">if you just did some chores, worked creatively,</p><p class="" dir="auto" id="3f858489-d681-80e2-aac6-f29d0d81a285">connected with the homies, finished a great workout －</p><p class="" dir="auto" id="3f858489-d681-80a8-9db3-c8a84f9c1828">you just got some essential nutrients right there.</p><p class="" dir="auto" id="3f858489-d681-8002-a008-eca76701ca35">you won't crave more until much later.</p><p class="" dir="auto" id="3f858489-d681-8049-8e0e-fb9d4ba19a18">‎</p><p class="" dir="auto" id="3f858489-d681-807f-812c-ce544911245b">you're chillin.</p><p class="" dir="auto" id="3f858489-d681-80ff-80fe-dd5e76d7e2c2">‎</p><h3 class="" dir="auto" id="3f858489-d681-8066-b389-e9070dc0e5bb">so if scrolling doesn't fulfill you,</h3><h3 class="" dir="auto" id="3f858489-d681-8050-a4bd-d10269c318ef">why the fuck do you keep doing it?</h3><p class="" dir="auto" id="3f858489-d681-80b9-b0a3-faf59a905c31">‎</p><p class="" dir="auto" id="3f858489-d681-80aa-97a6-eba615b4c981">it does the trick temporarily.</p><p class="" dir="auto" id="3f858489-d681-800e-bec7-dd024df38ee3"><strong>a stomach full of junk seems better than an empty one.</strong></p><p class="" dir="auto" id="3f858489-d681-809d-bb81-c5669b37c810">and it's not like there's absolutely nothing in there.</p><p class="" dir="auto" id="3f858489-d681-80c6-a610-d62058cb998f">‎</p><p class="" dir="auto" id="3f858489-d681-8085-8dcd-fd6b6dfebee8">every once in a while you find a gem.</p><p class="" dir="auto" id="3f858489-d681-80a8-bdf4-f62be0a1ef04">somewhere in that pile of shit there's a tiny bit of food.</p><p class="" dir="auto" id="3f858489-d681-808d-a128-d43de1b9de2b">and cuz you just ate a ton of shit －</p><p class="" dir="auto" id="3f858489-d681-8037-8ef8-f85e8ce93844">finding that food is exhilarating.</p><p class="" dir="auto" id="3f858489-d681-8051-9635-fb1eb8e70732">‎</p><p class="" dir="auto" id="3f858489-d681-80a0-84da-c62053b86f01">instantly your emotions start justifying the hours wasted.</p><p class="" dir="auto" id="3f858489-d681-8058-9c3e-cb5325a891b1">but when you're done, you're hungry again.</p><p class="" dir="auto" id="3f858489-d681-8009-bbbb-e1ff4d43b482">‎ ‎</p><p class="" dir="auto" id="3f858489-d681-80e2-b88d-d969d47b4230">so what do you do?</p><p class="" dir="auto" id="3f858489-d681-801c-b82e-eb5f001cd33a">‎</p><p class="" dir="auto" id="3f858489-d681-80e7-ad4e-d0d71d0a4292">well, the pile of shit that just rewarded you －</p><p class="" dir="auto" id="3f858489-d681-8083-8683-f7a2fdc1d792">is already in your hands.</p><p class="" dir="auto" id="3f858489-d681-808f-9772-f495ceb4fde4">let's go again.</p><p class="" dir="auto" id="3f858489-d681-80e3-865d-f081a2a16aba">‎</p><p class="" dir="auto" id="3f858489-d681-8010-aa55-ed9d15c8b74f">like a junkie you keep taking the next dose －</p><p class="" dir="auto" id="3f858489-d681-804a-914b-d76e3de61439"><strong>to escape the agony created by the previous one.</strong></p><p class="" dir="auto" id="3f858489-d681-803b-9c9c-cde69bcfc5d7">‎</p><p class="" dir="auto" id="3f858489-d681-80f5-a5fb-e5188a754715">you can't stop.</p><p class="" dir="auto" id="3f858489-d681-8045-9058-f4dd817fb428">and your stomach is too full to get off your ass.</p><p class="" dir="auto" id="3f858489-d681-80fb-834b-cd97d73bce45">time to digest.</p><p class="" dir="auto" id="3f858489-d681-80e3-b1f6-f92ba5211512">‎</p><p class="" dir="auto" id="3f858489-d681-805a-bf4e-e2afeb17aad1">‎</p><p class="" dir="auto" id="3f858489-d681-80a7-8e3d-de5ac504adb4">‎</p><h1 class="" dir="auto" id="3f858489-d681-801b-bd88-da7c4a126b0e">digestion differential</h1><p class="" dir="auto" id="3f858489-d681-80d3-a9c8-f9bf1ab5dc2d">most people overlook the simple fact －</p><p class="" dir="auto" id="3f858489-d681-8015-9411-cf2702b1f016">that experiences need to be digested too.</p><p class="" dir="auto" id="3f858489-d681-8044-b02a-f8f380246cbf">the more you consume, the more you gotta digest.</p><p class="" dir="auto" id="3f858489-d681-8035-9672-e71a7d66a344">what's in the past isn't just in the past － it lingers.</p><p class="" dir="auto" id="3f858489-d681-807a-8c72-e1f1bb5fbb55">‎</p><p class="" dir="auto" id="3f858489-d681-803b-93bb-edcbf2900069">like food, some are easier to digest than others.</p><p class="" dir="auto" id="3f858489-d681-80ad-8067-e92892ce71cb">a five minute walk doesn't need much processing.</p><p class="" dir="auto" id="3f858489-d681-8032-bbe0-ea9a6b8187ab">a dying loved one does.</p><p class="" dir="auto" id="3f858489-d681-80cb-b6ed-d8098047a9ef">‎</p><p class="" dir="auto" id="3f858489-d681-8023-aee6-cbe2f53d833c">now you can see the relationship to emotion.</p><p class="" dir="auto" id="3f858489-d681-804b-8103-de61c5fd0a72"><strong>more emotion = harder to digest.</strong></p><p class="" dir="auto" id="3f858489-d681-8019-a030-e466eff16ea1">positive or negative.</p><p class="" dir="auto" id="3f858489-d681-80b1-bd1d-e21d5fb792d1">‎</p><p class="" dir="auto" id="3f858489-d681-80aa-88a6-cf47451b986f">highly processed food has additives and preservatives.</p><p class="" dir="auto" id="3f858489-d681-802b-b829-d93a6b76827f">this extra garbage clogs the system.</p><p class="" dir="auto" id="3f858489-d681-802e-a4a3-e480d69565b1">‎</p><p class="" dir="auto" id="3f858489-d681-80f2-adca-cce73f63be47">highly processed experience, like content, is the same.</p><p class="" dir="auto" id="3f858489-d681-800e-8a6f-e8865eacd0ef">it's made to play into your emotions, to keep you engaged.</p><p class="" dir="auto" id="3f858489-d681-80e2-9911-d795f4d5a7db">‎</p><p class="" dir="auto" id="3f858489-d681-80b8-9d15-d137d964d863">it massages your taste buds,</p><p class="" dir="auto" id="3f858489-d681-807d-8480-e28f6c90868f">but your gut is starving for anything real.</p><p class="" dir="auto" id="3f858489-d681-80da-a298-ffa473f7712a">this form of appetite deception is a modern problem.</p><p class="" dir="auto" id="3f858489-d681-8035-80ce-ee173b16ae82">‎‎</p><p class="" dir="auto" id="3f858489-d681-807d-a3ad-fbe25fe44826">distracting the masses was never this profitable.</p><p class="" dir="auto" id="3f858489-d681-80cd-b5fe-db8e23edb69a">‎</p><p class="" dir="auto" id="3f858489-d681-803c-b35b-d6069e8e238d">‎</p><p class="" dir="auto" id="3f858489-d681-80ba-8746-da29caf5929f">‎</p><h1 class="" dir="auto" id="3f858489-d681-8049-ac18-c4339907417d">before</h1><p class="" dir="auto" id="3f858489-d681-80e1-9b3b-da59f6e19afd">humans have always craved emotional stimulation － it's how we survived.</p><p class="" dir="auto" id="3f858489-d681-8076-a6b2-f417d2af3cda">but in the age of scarcity, mental obesity wasn't around as much.</p><p class="" dir="auto" id="3f858489-d681-8097-9914-d2678abcbcbf">you didn't have as many experiences to choose from.</p><p class="" dir="auto" id="3f858489-d681-8018-8e9e-e9dc62a85f49">‎</p><p class="" dir="auto" id="3f858489-d681-8029-a4a8-d954368d3fbd">you had your village, family and the surrounding area to explore.</p><p class="" dir="auto" id="3f858489-d681-80f8-8e8b-f247d8988e13"><strong>the lack of options meant we would dive deeper into what we did have.</strong></p><p class="" dir="auto" id="3f858489-d681-80fc-8f85-ca8c32326c25">‎</p><p class="" dir="auto" id="3f858489-d681-803b-b89f-f1267825f54c">we would sit by the fire, feel the warmth flow through our skin.</p><p class="" dir="auto" id="3f858489-d681-807e-90e6-c3b757385ff3">captivated by all the little sparks and crackles bringing it to life.</p><p class="" dir="auto" id="3f858489-d681-8047-8ff6-d8f77ce6798b">it was almost hypnotic, that breathing beauty.</p><p class="" dir="auto" id="3f858489-d681-80e7-adac-deba06c3409e">‎</p><p class="" dir="auto" id="3f858489-d681-80c0-adb6-f3fa6797e3d9">traveling efficiency changed everything.</p><p class="" dir="auto" id="3f858489-d681-80ef-aa0d-ecc430badc42">first horses, then boats, trains &amp; planes.</p><p class="" dir="auto" id="3f858489-d681-8017-9b9a-d359e7287e52">suddenly the whole world was available to us.</p><p class="" dir="auto" id="3f858489-d681-8079-a18c-deb9f47fe2fa">‎</p><p class="" dir="auto" id="3f858489-d681-809f-b705-c9ddabb4f0b6">not only did we travel more ourselves － our experience buffet did too.</p><p class="" dir="auto" id="3f858489-d681-800d-9566-e55da0236b4f">books and other forms of entertainment, suddenly available to the masses.</p><p class="" dir="auto" id="3f858489-d681-80cb-b0b8-eb222891fa13">‎</p><p class="" dir="auto" id="3f858489-d681-8018-a903-d35ce2b787c1"><strong>this increase in options robbed us of depth.</strong></p><p class="" dir="auto" id="3f858489-d681-80a5-a6a5-cc05c0465070">instead of the fire guiding our senses to wonder,</p><p class="" dir="auto" id="3f858489-d681-80d8-8a2b-d7300ee7b6a8">we became obsessed with stacking as many shallow thrills as we could.</p><p class="" dir="auto" id="3f858489-d681-80fc-ba2f-f5fed2b3c865">taking a bite out of every meal, not finishing a single one.</p><p class="" dir="auto" id="3f858489-d681-8007-86b5-e3f7a661ab5d">‎</p><p class="" dir="auto" id="3f858489-d681-80a0-95ab-ca09cbcf367b">and it's only getting worse.</p><p class="" dir="auto" id="3f858489-d681-80d0-aef4-ceb1447c545e">
+</p><p class="" dir="auto" id="3f858489-d681-80c3-ab13-d57ca40ec65a">‎</p><p class="" dir="auto" id="3f858489-d681-80bb-bae4-cf3b23611bae">‎</p><h1 class="" dir="auto" id="3f858489-d681-808a-b41a-e8cccf882d37">the buffet boom</h1><p class="" dir="auto" id="3f858489-d681-8086-af01-eb014465f4d8">our recent tech development has skyrocketed our possibilities.</p><p class="" dir="auto" id="3f858489-d681-802f-9c28-d2c7de667b75">shit changed so fast, we haven't been able to adjust － at all.</p><p class="" dir="auto" id="3f858489-d681-80d7-ba1c-d45faa8c1f8b">like with food, the more you eat, the more your stomach grows.</p><p class="" dir="auto" id="3f858489-d681-806b-8c45-f4775fc4727b">‎</p><p class="" dir="auto" id="3f858489-d681-806f-a9cd-d757c1352740">but that takes time.</p><p class="" dir="auto" id="3f858489-d681-8019-b467-c0dff1640bda">‎</p><p class="" dir="auto" id="3f858489-d681-80b7-82de-e38d65802d81">it's impossible to digest everything available to us right now.</p><p class="" dir="auto" id="3f858489-d681-80ee-b0f0-cd2b131e9a04">‎</p><p class="" dir="auto" id="3f858489-d681-802e-80d8-c979422a2f48">every single day:</p><ul class="bulleted-list" dir="auto" id="3f858489-d681-805e-811d-e8be6284054d"><li style="list-style-type:disc">200,000,000 hours are spent on Netflix.</li></ul><ul class="bulleted-list" dir="auto" id="3f858489-d681-803f-a089-d0f109346759"><li style="list-style-type:disc">2,500,000,000 posts are shared on Facebook.</li></ul><ul class="bulleted-list" dir="auto" id="3f858489-d681-8021-83e7-eca0e55049b7"><li style="list-style-type:disc">8,500,000,000 searches are performed on Google.</li></ul><ul class="bulleted-list" dir="auto" id="3f858489-d681-8077-a124-ddea546b76ec"><li style="list-style-type:disc"><strong>240,000,000,000 videos are watched on TikTok.</strong><br/>‎<br/></li></ul><p class="" dir="auto" id="3f858489-d681-80c5-ad69-ed68e5fcf2be">you're surrounded by so much noise,</p><p class="" dir="auto" id="3f858489-d681-8015-b4da-ee4be812a2f2">you start mistaking it for signal.</p><p class="" dir="auto" id="3f858489-d681-8032-b4aa-d13b85cdb487"><br/>‎<br/>and the main way we process all this,</p><p class="" dir="auto" id="3f858489-d681-805d-8dd1-cecd2a942603">hasn't improved at all.</p><p class="" dir="auto" id="3f858489-d681-808e-8bb2-c79dd3ad1cb7"><br/>‎<br/>you still only sleep 8 hours.</p><p class="" dir="auto" id="3f858489-d681-80f8-b57a-fa6dea3c7895">with screen-time taking a big bite out of it.</p><p class="" dir="auto" id="3f858489-d681-80f3-9b71-de1cb456b300">so you consume more, digest less － and your stomach hasn't grown.</p><p class="" dir="auto" id="3f858489-d681-8045-8862-c398d3875633"><br/>‎<br/>this means most of us are constantly full.</p><p class="" dir="auto" id="3f858489-d681-8007-8a96-de545ada3128">and the lack of depth means we're never satisfied.</p><p class="" dir="auto" id="3f858489-d681-804b-b356-d306d9c2909d">
+</p><h3 class="" dir="auto" id="3f858489-d681-80b9-96f2-f60bf9d378bf">too full to move － too hungry to stop consuming.</h3><h3 class="" dir="auto" id="3f858489-d681-8017-8764-e745d5511e60">forced to keep chasing something that doesn't exist.</h3><p class="" dir="auto" id="3f858489-d681-807d-99fd-c6651cf396ac">‎</p><p class="" dir="auto" id="3f858489-d681-8027-9664-f187ee4cba63">being full means you're constantly absorbing calories.</p><p class="" dir="auto" id="3f858489-d681-80f3-bd6d-eb8aef6f118f">no wonder your mind's overweight.</p><p class="" dir="auto" id="3f858489-d681-8065-b447-dc1735c4221c">‎</p><p class="" dir="auto" id="3f858489-d681-8040-8187-c1ff61db0238">but what does it mean to be mentally obese?</p><p class="" dir="auto" id="3f858489-d681-809a-b5dc-e78b9df781b8">‎</p><p class="" dir="auto" id="3f858489-d681-801c-b140-ca2fdd0ce9d8">your mind starts weighing you down.</p><p class="" dir="auto" id="3f858489-d681-800b-a96c-dc9e1ed1cf58">like climbing up a ladder with a concrete helmet.</p><p class="" dir="auto" id="3f858489-d681-80c4-99fe-ee5db1550ae1">distraction, stress, anxiety &amp; depression creep in.</p><p class="" dir="auto" id="3f858489-d681-80ee-b2ad-e951d20189cf">‎</p><p class="" dir="auto" id="3f858489-d681-80d0-8db0-c25c817769e1"><strong>you're too full of experience.</strong></p><p class="" dir="auto" id="3f858489-d681-80c4-8e6f-cee6d111742f">‎</p><p class="" dir="auto" id="3f858489-d681-8038-8423-da08e17fda56">how are you ever gonna lock in if there's thousands －</p><p class="" dir="auto" id="3f858489-d681-8051-b2d7-f39b888ba139">if not millions of things pulling on your attention constantly?</p><p class="" dir="auto" id="3f858489-d681-8077-8132-f2a266bbc475">‎</p><p class="" dir="auto" id="3f858489-d681-807a-ab26-c353e9f03ee1">no wonder you don't know what you want.</p><p class="" dir="auto" id="3f858489-d681-8040-8864-d77a37707c95">you never digest.</p><p class="" dir="auto" id="3f858489-d681-8014-b154-ea59a647fdf4">‎</p><p class="" dir="auto" id="3f858489-d681-8025-981c-c903bc3d92ca">your mind can't function － it's a blurry mess.</p><p class="" dir="auto" id="3f858489-d681-80b5-8ab4-c265a25a2641">you're drunk, trying to reverse park a truck cliffside with dirty mirrors.</p><p class="" dir="auto" id="3f858489-d681-803a-905c-d59185412ca3">you need a break, life's too much to handle right now.</p><p class="" dir="auto" id="3f858489-d681-8070-bd23-d093f161da8f">‎</p><p class="" dir="auto" id="3f858489-d681-80b4-846b-ccd7e404860e">but you can't.</p><p class="" dir="auto" id="3f858489-d681-80fa-bdd8-e2864fbd335e">‎</p><p class="" dir="auto" id="3f858489-d681-80c6-9bd0-e34d6b098273">you think life's gonna wait for you to feel better?</p><p class="" dir="auto" id="3f858489-d681-80ad-a102-f1c92784c6c5">fuck no. decisions gotta be made and they're piling up by the minute.</p><p class="" dir="auto" id="3f858489-d681-8047-8e34-c316bb4e8c6e">eve‎ntually you're forced to act, so what do you do?</p><p class="" dir="auto" id="3f858489-d681-8003-8641-c203108189a0">‎</p><p class="" dir="auto" id="3f858489-d681-8071-a10f-f026940f4686"><strong>you rely on impulse.</strong></p><p class="" dir="auto" id="3f858489-d681-809e-b869-d2ae4403ef4b">‎</p><p class="" dir="auto" id="3f858489-d681-80fe-892b-d46cb69294eb">living on autopilot wouldn't be a problem if the pilot wasn't obese.</p><p class="" dir="auto" id="3f858489-d681-809d-8cf8-ec396736dff1">but he is, and he's surrounded by drugs, entertainment, pleasure －</p><p class="" dir="auto" id="3f858489-d681-807e-91d0-d4b67a3de6cf">and slot machine based apps that profit as you gamble your soul away.</p><p class="" dir="auto" id="3f858489-d681-8060-b807-fcad6edef30b">‎</p><p class="" dir="auto" id="3f858489-d681-804f-a5a0-e78542671c79">even a toddler with a lazy eye can see this is a recipe for disaster － but<strong> </strong>you're<strong> </strong>blind.</p><p class="" dir="auto" id="3f858489-d681-80c0-93ff-ed130a379714">any time you start seeing what's happening, autopilot just reminds you:</p><p class="" dir="auto" id="3f858489-d681-802e-a173-ea02b06bec90">‎</p><h3 class="" dir="auto" id="3f858489-d681-80ff-9120-db2329a43657">pleasure is the closest thing you have to happiness.</h3><h3 class="" dir="auto" id="3f858489-d681-80a7-ad42-fac8293df98b">you got nothing else.</h3><p class="" dir="auto" id="3f858489-d681-80f6-8e16-e5fa945f2122">‎</p><p class="" dir="auto" id="3f858489-d681-8051-b4c7-dc04076b0db8">now you're stuck in pleasure prison.</p><p class="" dir="auto" id="3f858489-d681-80d0-b7ab-f025999155cd">a spiral that never ends.</p><p class="" dir="auto" id="3f858489-d681-8046-9bab-cf2e9cd4aab5">‎</p><p class="" dir="auto" id="3f858489-d681-802b-8ffe-ec5f6c621a6d">→ you get a device</p><p class="" dir="auto" id="3f858489-d681-80b0-961b-d22fba70ae71">→ you enjoy way more experiences</p><p class="" dir="auto" id="3f858489-d681-80cb-9c69-e0daa90e6901">→ you set a new bar for the amount</p><p class="" dir="auto" id="3f858489-d681-806d-b957-d1c6ff49239f">‎</p><p class="" dir="auto" id="3f858489-d681-804b-93b5-d7d889632355">→ the amount grows exponentially</p><p class="" dir="auto" id="3f858489-d681-808a-88f4-ca1c08442e25">→ despite all this, you don't feel fulfilled at all</p><p class="" dir="auto" id="3f858489-d681-8089-9db7-ed6a475ef1d8">→ you waste more time tryna get fulfillment from non-fulfilling experiences</p><p class="" dir="auto" id="3f858489-d681-80e2-8e43-fd8890d951d4">‎</p><p class="" dir="auto" id="3f858489-d681-801b-9066-c73dd52ad6e5">→ the problem grows as your compass breaks together with your will</p><p class="" dir="auto" id="3f858489-d681-8015-bc21-e38efe816823">→ you get used to feeling this way, so you let your impulses lead</p><p class="" dir="auto" id="3f858489-d681-80fe-bd31-e9965d3c52ef">→ the impulse first approach keeps you stuck in this loop</p><p class="" dir="auto" id="3f858489-d681-80bd-8cee-d92578233123">‎</p><p class="" dir="auto" id="3f858489-d681-8083-b28b-efcc2e64a3ce">and the worst part?</p><p class="" dir="auto" id="3f858489-d681-806b-9ec0-e90f7ab71498">you know what's happening.</p><p class="" dir="auto" id="3f858489-d681-804a-b5a3-f4bec2865f82">you just gave up.</p><p class="" dir="auto" id="3f858489-d681-8019-a0d8-d7b5cc679fd7">‎</p><p class="" dir="auto" id="3f858489-d681-804c-a40f-eb9dee9e97bd">you're fucked.</p><p class="" dir="auto" id="3f858489-d681-80c8-bf35-d5c504734b16">‎</p><p class="" dir="auto" id="3f858489-d681-8036-98d1-c6c2c18ee79a">‎</p><p class="" dir="auto" id="3f858489-d681-801e-8507-fa6148ced943">‎</p><h1 class="" dir="auto" id="3f858489-d681-8020-8fc4-c24a10c1201a">un-fuck your life</h1><p class="" dir="auto" id="3f858489-d681-806a-9986-e77a422d8c28">hopefully you've finally realized the magnitude of your situation.</p><p class="" dir="auto" id="3f858489-d681-804c-97d7-f7aff5551379">if you've come this far into the piece, i'm sure you're waking up.</p><p class="" dir="auto" id="3f858489-d681-80f0-86e9-caa2b78544b4">you're done being a slave to your impulses.</p><p class="" dir="auto" id="3f858489-d681-80d0-8f9a-d51764bdb927">‎</p><p class="" dir="auto" id="3f858489-d681-80c2-a6e6-eedcd98169a2">let's break free.</p><p class="" dir="auto" id="3f858489-d681-80d9-a79f-d67119c8a407">‎</p><p class="" dir="auto" id="3f858489-d681-800b-a8fd-ef6a0c9210d1">
+</p><h2 class="" dir="auto" id="3f858489-d681-80cb-95e9-d9ae1b9002ce">understanding digestion</h2><p class="" dir="auto" id="3f858489-d681-8069-9886-f0e97f3d3f6c">your addiction to hammering garbage down your throat is one thing.</p><p class="" dir="auto" id="3f858489-d681-80b2-878e-fbc56cd346c9">but carrying it around everywhere, complaining your life stinks?</p><p class="" dir="auto" id="3f858489-d681-8021-9c31-f8eb8608db32">that's ridicul‎ous. junk in, junk out － what did you expect?</p><p class="" dir="auto" id="3f858489-d681-8054-abe8-fb06565a18f3">‎</p><p class="" dir="auto" id="3f858489-d681-80b3-a365-fa405294dfa7">time to clean up.</p><p class="" dir="auto" id="3f858489-d681-80f7-a929-cceaa7b6b2e7">‎</p><p class="" dir="auto" id="3f858489-d681-801b-81e4-c7c4feb2af6b">processing our experiences is done directly or indirectly.</p><p class="" dir="auto" id="3f858489-d681-806e-9050-c84493953476">the direct approach is all about reflection and evaluation.</p><p class="" dir="auto" id="3f858489-d681-80d8-a4e7-d6e67715bf0a">if you don't consciously decide what to believe,</p><p class="" dir="auto" id="3f858489-d681-8054-bbbb-d095f0714352">‎</p><p class="" dir="auto" id="3f858489-d681-809c-9eec-e068c1f78499"><strong>someone else will decide for you.</strong></p><p class="" dir="auto" id="3f858489-d681-8045-9616-e630cf49c307">‎</p><p class="" dir="auto" id="3f858489-d681-80b8-be12-c7bf0e5ea13b">instead of basing assumptions on your own life,</p><p class="" dir="auto" id="3f858489-d681-809c-91f7-fa4e8f3045f7">you're drip-fed other people's neuroses, trauma &amp; resentment.</p><p class="" dir="auto" id="3f858489-d681-8006-a236-c85b9e58eafd">they decide the colors of your daily life,</p><p class="" dir="auto" id="3f858489-d681-80af-90b1-dcd0a44f182a">usually turning grey.</p><p class="" dir="auto" id="3f858489-d681-804b-9b37-d0b4e8bf52c6">‎</p><p class="" dir="auto" id="3f858489-d681-8095-b982-e68628cb82ff">so, every once in a while, take a step back.</p><p class="" dir="auto" id="3f858489-d681-8016-bb93-e28fbad02c1d">assess what beliefs are guiding your behavior.</p><p class="" dir="auto" id="3f858489-d681-80af-b706-c21138b40ed9">‎</p><p class="" dir="auto" id="3f858489-d681-8078-9ddd-eb520b39f2f5">while the direct approach is great, it's incomplete.</p><p class="" dir="auto" id="3f858489-d681-8021-a1ac-e423ff3abef2">some problems are so tough, our subconscious needs to do the chewing －</p><p class="" dir="auto" id="3f858489-d681-8011-96be-e20dea80ab02">your biological algorithm, constantly grinding in the background.</p><p class="" dir="auto" id="3f858489-d681-801f-8ab7-e2a92ec8111f">‎‎</p><p class="" dir="auto" id="3f858489-d681-80cb-bf1c-cc1241fedcfd">indirect digestion means making sure the system is in good shape.</p><p class="" dir="auto" id="3f858489-d681-80a4-b1c7-dc570464cd6b">if you never update, clean &amp; test it, it's a useless mess.</p><p class="" dir="auto" id="3f858489-d681-8080-9393-fb64a1e0752b">‎</p><p class="" dir="auto" id="3f858489-d681-8024-af9a-cc736c8ec3da">direct is for planning the journey.</p><p class="" dir="auto" id="3f858489-d681-801b-8953-e2784ab2961e">indirect makes sure you follow your compass.</p><p class="" dir="auto" id="3f858489-d681-807d-9c28-f0b6f1fef4c6">‎</p><p class="" dir="auto" id="3f858489-d681-80fd-9e7f-e4a80e166e54"><strong>digestion breaks are essential to a good life.</strong></p><p class="" dir="auto" id="3f858489-d681-80bb-af01-ebfdeb05d553"><strong>without them you could go the complete opposite direction for years.</strong></p><p class="" dir="auto" id="3f858489-d681-8050-a88e-d42cf30b2cec">‎</p><p class="" dir="auto" id="3f858489-d681-80d0-a018-c143b3fb3b87">most of us don't even take tiny digestion breaks anymore.</p><p class="" dir="auto" id="3f858489-d681-8001-96e1-f6651da45a08">simply waiting five minutes in line at the store is too much.</p><p class="" dir="auto" id="3f858489-d681-80fa-83e6-dec4ef31c893">‎</p><p class="" dir="auto" id="3f858489-d681-807c-afae-dcccc61321f0">if you grab your phone as soon as this happens,</p><p class="" dir="auto" id="3f858489-d681-80da-a7f6-c6a76633a08b">isn't that fucking pathetic?</p><p class="" dir="auto" id="3f858489-d681-8067-bc21-fe6bbf043576">‎</p><p class="" dir="auto" id="3f858489-d681-8010-b545-c4401722bebe">you're much,</p><p class="" dir="auto" id="3f858489-d681-80cd-9b06-d8162b5e75e5">much better than that.</p><p class="" dir="auto" id="3f858489-d681-803f-87bd-c601802b65b2">
+</p><p class="" dir="auto" id="3f858489-d681-800a-bcbc-c57d3bb85a11">
+</p><h2 class="" dir="auto" id="3f858489-d681-80cb-9f99-da83c44d6399">mental dieting</h2><p class="" dir="auto" id="3f858489-d681-8062-bada-e70660906c85">if the word "dieting" made you flinch － good.</p><p class="" dir="auto" id="3f858489-d681-805b-bc7e-fd6d989c83c9">that's the autopilot squirming in his seat.</p><p class="" dir="auto" id="3f858489-d681-8019-9a98-f58959252acc">now you know how he communicates.</p><p class="" dir="auto" id="3f858489-d681-808f-8a02-c9adc41c7ac9">‎</p><p class="" dir="auto" id="3f858489-d681-803a-8f77-c2bdabf08e3f">you act like a slave, but you hold the keys.</p><p class="" dir="auto" id="3f858489-d681-805c-b434-f4fc7426e658">let's get the fuck outta here.</p><p class="" dir="auto" id="3f858489-d681-801e-b864-f7edf8678c6d">‎</p><h3 class="" dir="auto" id="3f858489-d681-8032-b634-f09dea973d5e">the recipe</h3><p class="" dir="auto" id="3f858489-d681-801b-a6c0-c016cc1e5b6d">fixing your health is really simple.</p><p class="" dir="auto" id="3f858489-d681-80c6-844a-e13ce9304fb8">there's no single solution though.</p><p class="" dir="auto" id="3f858489-d681-801c-8194-e65134f916b7">i'm not gonna tell you how to live.</p><p class="" dir="auto" id="3f858489-d681-802c-b3cc-ccd89132b273">‎</p><p class="" dir="auto" id="3f858489-d681-8014-8496-c2edac113226">most self-help furus would tell you to:</p><ul class="bulleted-list" dir="auto" id="3f858489-d681-802b-82a8-d9b4570a4b5b"><li style="list-style-type:disc">meditate</li></ul><ul class="bulleted-list" dir="auto" id="3f858489-d681-800d-a0ff-f501fed8b8e5"><li style="list-style-type:disc">journal</li></ul><ul class="bulleted-list" dir="auto" id="3f858489-d681-806b-839b-fae63c96f04e"><li style="list-style-type:disc">plan ahead 5 years</li></ul><p class="" dir="auto" id="3f858489-d681-809a-b138-eceea03261c6">
+</p><p class="" dir="auto" id="3f858489-d681-80a7-b9f7-f4860e97aeee">fuck that.</p><p class="" dir="auto" id="3f858489-d681-8025-a711-e923c7043a46">
+</p><p class="" dir="auto" id="3f858489-d681-8096-b9e3-c3e9be3c8c6c">no one lifestyle is better than another.</p><p class="" dir="auto" id="3f858489-d681-8081-922b-f4a8cfca79df">if you wanna play video games all night, do it.</p><p class="" dir="auto" id="3f858489-d681-808b-b1c4-d57d8b43324c">live your life on your own terms.</p><p class="" dir="auto" id="3f858489-d681-80ce-a368-d5ec14900bdd">
+</p><p class="" dir="auto" id="3f858489-d681-80a9-84a7-d1713f8b58bc">my problem is with people who don't follow their compass.</p><p class="" dir="auto" id="3f858489-d681-80ae-ba88-ecd9cbb9704d">it hurts seeing them like that, they've never seen their strength.</p><p class="" dir="auto" id="3f858489-d681-8013-8221-e983e9743453">
+</p><h3 class="" dir="auto" id="3f858489-d681-800b-977c-f4d5c0611472">they wake up to blurry minds,</h3><h3 class="" dir="auto" id="3f858489-d681-80c4-85d4-e042bde2f4b9">always unsure of what's real － unsure of themselves.</h3><h3 class="" dir="auto" id="3f858489-d681-8070-a269-ebf483c2d3cc">forced to let their impulses drive 'em off a cliff every day.</h3><p class="" dir="auto" id="3f858489-d681-804b-bbef-e44251e66d72">‎</p><p class="" dir="auto" id="3f858489-d681-80a1-86f2-d2c1dba66cb2">like i said, i'm not telling you what to do.</p><p class="" dir="auto" id="3f858489-d681-8032-a0d5-d1d2b5a16b65">everyone needs a different amount － enough is enough.</p><p class="" dir="auto" id="3f858489-d681-803b-b288-f0d68275b1ad">just try to make sure you're not deficient.</p><p class="" dir="auto" id="3f858489-d681-800a-bb81-fd0d0940f08e">‎</p><p class="" dir="auto" id="3f858489-d681-8060-8ca5-e25f24939f43">if you're lost, let digestion lead you.</p><p class="" dir="auto" id="3f858489-d681-8033-9968-c3878cdf9ba8">the clarity will reveal what you're missing.</p><p class="" dir="auto" id="3f858489-d681-8004-87d6-c9953329d645">and please remember euphoria isn't happiness.</p><p class="" dir="auto" id="3f858489-d681-804a-af7f-eee342612f20">‎</p><p class="" dir="auto" id="3f858489-d681-80f8-8434-fc231d6eb8f9"><strong>happiness is when the mind is silent.</strong></p><p class="" dir="auto" id="3f858489-d681-80d6-89a6-e553703743ec">think of the happiest moments in your life,</p><p class="" dir="auto" id="3f858489-d681-80c3-8299-c308676b80bb">were you lost in thought or immersed in the moment?</p><p class="" dir="auto" id="3f858489-d681-800a-835c-c78c46806684">‎</p><p class="" dir="auto" id="3f858489-d681-80b3-9c4a-e725fae1e6d7">mental silence comes from peace and contentment.</p><p class="" dir="auto" id="3f858489-d681-802d-8a62-cc9e8ce06c06">sure, you can buy silence by flooding yourself with pleasure too,</p><p class="" dir="auto" id="3f858489-d681-8041-973d-c07783fde072">but the problem is the mind is relative, so you'll keep needing more.</p><p class="" dir="auto" id="3f858489-d681-8064-85b4-ce587e2e4ca3">until the contrast with the rest of life grows so big, it turns into misery.</p><p class="" dir="auto" id="3f858489-d681-80b6-b51d-ea808b23a2b7">‎</p><p class="" dir="auto" id="3f858489-d681-805c-b942-e1b89b1ddf6a">instead, if you can find peace in a mental storm － you'll always have it.</p><p class="" dir="auto" id="3f858489-d681-80a8-94fe-e21cebfa6995">‎</p><p class="" dir="auto" id="3f858489-d681-805d-9abb-c3baf96526da">so the road to real happiness</p><p class="" dir="auto" id="3f858489-d681-801b-9b16-d02a4b2ec20c">is accepting your thoughts and feelings,</p><p class="" dir="auto" id="3f858489-d681-807d-943e-ee3e252c82e3"><strong>not giving them what they want until they shut the fuck up.</strong></p><p class="" dir="auto" id="3f858489-d681-801a-a33b-f503d3a1014d">‎</p><h3 class="" dir="auto" id="3f858489-d681-80fc-af43-c3b9b0f654c5">practical</h3><p class="" dir="auto" id="3f858489-d681-8084-9c89-ce12725fb939">i know some of you crave answers, to silence the noise.</p><p class="" dir="auto" id="3f858489-d681-8088-b89b-c1d27d3e9d8a">i can help, but i won't give you answers － they don't exist.</p><p class="" dir="auto" id="3f858489-d681-8070-87d1-ec61559d669d">i'll give you some questions though.</p><p class="" dir="auto" id="3f858489-d681-802c-b6a7-d1a0849b1e82">‎</p><p class="" dir="auto" id="3f858489-d681-807d-ac5b-e79c813c380b">answering these as often as possible will help you a lot.</p><p class="" dir="auto" id="3f858489-d681-80b0-afc2-d25e0a6785fe">be brutally honest, don't flinch, expose your mistakes.</p><p class="" dir="auto" id="3f858489-d681-8019-965a-ca083a6ec285">admitting you lost today is the first step to winning tomorrow.</p><p class="" dir="auto" id="3f858489-d681-803f-8b8d-ce22ef28732b">‎</p><h4 class="" dir="auto" id="3f858489-d681-804b-bfca-f17ec224ff09"><em>"where did i escape my emotions today?"</em></h4><p class="" dir="auto" id="3f858489-d681-8020-973c-cd586d85e261"><mark class="highlight-gray" data-notion-highlight="gray">answering this helps illuminate how you abuse experiences.</mark></p><p class="" dir="auto" id="3f858489-d681-8060-95fe-c5c9dee2585a"><mark class="highlight-gray" data-notion-highlight="gray">if something comes up you don't like, </mark><mark class="highlight-default" data-notion-highlight="default"><strong>it needs digestion.</strong></mark></p><p class="" dir="auto" id="3f858489-d681-80de-b44c-df68493087dc"><mark class="highlight-default" data-notion-highlight="default"><strong>not distraction.</strong></mark></p><p class="" dir="auto" id="3f858489-d681-8044-b8cb-dcd474120315">‎</p><h4 class="" dir="auto" id="3f858489-d681-8021-8b2d-c98ed23bd33d"><em>"where did i pick purpose over pleasure?"</em></h4><p class="" dir="auto" id="3f858489-d681-8073-8c08-dac8112f8cf7"><mark class="highlight-gray" data-notion-highlight="gray">answering this will show you the balance in your diet.</mark></p><p class="" dir="auto" id="3f858489-d681-80ed-8368-c19c3905fbba"><mark class="highlight-gray" data-notion-highlight="gray">diversifying stimulation can hide over-consumption.</mark></p><p class="" dir="auto" id="3f858489-d681-80b7-a19e-fd34abcb8579"><mark class="highlight-gray" data-notion-highlight="gray">this reveals it.</mark></p><p class="" dir="auto" id="3f858489-d681-80bb-9028-f42975b0265d">‎</p><h4 class="" dir="auto" id="3f858489-d681-80ab-9ef3-cfc6de5830ee"><em>"did i choose stillness today?"</em></h4><p class="" dir="auto" id="3f858489-d681-8033-b3c3-e516357fa5b7"><mark class="highlight-gray" data-notion-highlight="gray">this shows you the level of your stimulation addiction.</mark></p><p class="" dir="auto" id="3f858489-d681-8000-95f6-c723cb4ff218"><mark class="highlight-gray" data-notion-highlight="gray">choosing stillness doesn't necessarily mean meditation.</mark></p><p class="" dir="auto" id="3f858489-d681-802d-bc89-c5eec971ccfa"><mark class="highlight-gray" data-notion-highlight="gray">not taking your earbuds everywhere counts too.</mark></p><p class="" dir="auto" id="3f858489-d681-80cc-9474-e071ff295f2a">‎</p><p class="" dir="auto" id="3f858489-d681-8089-b107-ff98e5ca8394"><mark class="highlight-default" data-notion-highlight="default"><strong>anything that proves silence isn't punishment</strong></mark></p><p class="" dir="auto" id="3f858489-d681-80c1-997f-ccb854f2f3ca"><mark class="highlight-default" data-notion-highlight="default"><strong>is building happiness.</strong></mark></p><p class="" dir="auto" id="3f858489-d681-805c-b5bf-c4e63a6541fa">‎</p><h4 class="" dir="auto" id="3f858489-d681-80d3-9fcc-c9ce6f48537f"><em>"did i stay true to my word?"</em></h4><p class="" dir="auto" id="3f858489-d681-8027-ad46-e66cb239efc8"><mark class="highlight-gray" data-notion-highlight="gray">this one is powerful for living life how you want.</mark></p><p class="" dir="auto" id="3f858489-d681-80c9-963b-fad80df52dfb"><mark class="highlight-gray" data-notion-highlight="gray">whenever you back down, fearing discomfort, you lose.</mark></p><p class="" dir="auto" id="3f858489-d681-8060-a9d8-ca3ed560efef"><mark class="highlight-default" data-notion-highlight="default"><strong>doing what you want isn't just indulging in pleasures.</strong></mark></p><p class="" dir="auto" id="3f858489-d681-8073-9d09-de8f8a38545e"><mark class="highlight-default" data-notion-highlight="default"><strong>it's living up to your values.</strong></mark></p><p class="" dir="auto" id="3f858489-d681-8015-a5d4-f121499cbd10">‎</p><p class="" dir="auto" id="3f858489-d681-80df-964d-e8f387838b77">‎</p><h2 class="" dir="auto" id="3f858489-d681-8032-9f13-f7dc99ffd09b">losing weight</h2><p class="" dir="auto" id="3f858489-d681-807d-983d-e1b01c62079e">getting your consumption under control is great,</p><p class="" dir="auto" id="3f858489-d681-80fc-a757-ccb4908b0236">but when you exercise, you tackle the problem from both sides.</p><p class="" dir="auto" id="3f858489-d681-805a-96ce-c1b37b2fd191">‎</p><p class="" dir="auto" id="3f858489-d681-80fc-bcca-ca6ea4755982">mental exercise means breaking emotional barriers.</p><p class="" dir="auto" id="3f858489-d681-80da-809a-e8aaa0013612">anything that makes you flinch works.</p><p class="" dir="auto" id="3f858489-d681-80ef-9e59-f7d3b86886cb">‎</p><p class="" dir="auto" id="3f858489-d681-80ef-aadb-cd8016388780">any time you suffer, you have a choice:</p><ul class="bulleted-list" dir="auto" id="3f858489-d681-8036-8c7e-efc15de57814"><li style="list-style-type:disc">either you lift the weight, burn calories, and gain strength.</li></ul><ul class="bulleted-list" dir="auto" id="3f858489-d681-80ac-84d7-d43c32438578"><li style="list-style-type:disc">or you let it suffocate you by playing victim.</li></ul><p class="" dir="auto" id="3f858489-d681-80d4-ab19-ee5798f7e901">
+</p><p class="" dir="auto" id="3f858489-d681-80d0-b30d-cbe7930c4ed6">suffering is like a free bug report.</p><p class="" dir="auto" id="3f858489-d681-800b-9cf9-f9a840531cb5">if it feels heavy, that's where your room for growth is.</p><p class="" dir="auto" id="3f858489-d681-8068-91fa-f39e04a3d06c"><br/>‎<br/>progressive overload works for mental exercise too.</p><p class="" dir="auto" id="3f858489-d681-802a-ab44-d2cddbbc3fc2">climb, but don't jump. consistency first.</p><p class="" dir="auto" id="3f858489-d681-8039-9c95-e2aa64ab4291">
+</p><p class="" dir="auto" id="3f858489-d681-80b0-ac81-fa131898ca62">
+</p><h2 class="" dir="auto" id="3f858489-d681-8096-83c6-e3e8dee48ec3">escaping life</h2><p class="" dir="auto" id="3f858489-d681-800c-80fd-cea08cddb942">this might be the single most destructive behavior there is.</p><p class="" dir="auto" id="3f858489-d681-8079-878e-e655bba69b10">we abuse experience as a way of escaping our feelings.</p><p class="" dir="auto" id="3f858489-d681-80d9-b51a-e9badf5faa9d">physically fat people escape to food.</p><p class="" dir="auto" id="3f858489-d681-80ff-b71d-eebda8b1f842">the mentally obese to experience.</p><p class="" dir="auto" id="3f858489-d681-80bd-a44d-fea292e260bb">‎</p><p class="" dir="auto" id="3f858489-d681-80af-965e-f561110d04e4">whenever you're dissatisfied with an experience, pay attention.</p><p class="" dir="auto" id="3f858489-d681-8073-af62-c400ab3059a4">if you jump right into another one, drugs, scrolling, movies －</p><p class="" dir="auto" id="3f858489-d681-8090-851c-cf254ccc2a70">that's your escape.</p><p class="" dir="auto" id="3f858489-d681-8022-9fbd-f0fec664971b">‎</p><p class="" dir="auto" id="3f858489-d681-8032-9258-fce36f2f0806">escapism is like being in a unique kind of prison.</p><p class="" dir="auto" id="3f858489-d681-80ab-bfc6-c5096c1d5190">you have a certain sentence you need to sit out －</p><p class="" dir="auto" id="3f858489-d681-80a6-8144-d56d12aa1b5a">but this prison offers you temporary relief.</p><p class="" dir="auto" id="3f858489-d681-800b-a27b-e0b678e01832">‎</p><p class="" dir="auto" id="3f858489-d681-8000-a9ff-f40679387107"><strong>there's a catch though:</strong></p><p class="" dir="auto" id="3f858489-d681-808f-abc5-fa0059d4be9b">‎</p><p class="" dir="auto" id="3f858489-d681-8074-87b9-e8fce4dcbe9b">either you sit out your full sentence and are free.</p><p class="" dir="auto" id="3f858489-d681-806d-9b60-ce7f01d51b4b">or you can choose to be free for a day － but it resets your sentence.</p><p class="" dir="auto" id="3f858489-d681-80b6-a7f2-fba157741793">‎</p><p class="" dir="auto" id="3f858489-d681-8072-bebe-e86c6d1d7090">when you escape your feelings you're choosing the latter.</p><p class="" dir="auto" id="3f858489-d681-80f8-b83f-fe7b220b584c"><strong>always resetting your sentence and never becoming free.</strong></p><p class="" dir="auto" id="3f858489-d681-80c8-8fec-f40edb6d9e7c">‎</p><p class="" dir="auto" id="3f858489-d681-800a-9836-d09b0d789f66">you clearly don't want to be here, right?</p><p class="" dir="auto" id="3f858489-d681-805f-8508-ef3c1e773e06">then why the fuck do you keep extending your sentence every chance you get?</p><p class="" dir="auto" id="3f858489-d681-806c-a20e-dc470eb4faa6">‎</p><p class="" dir="auto" id="3f858489-d681-802d-8d33-f274d09567ee">you're not escaping.</p><p class="" dir="auto" id="3f858489-d681-80cb-a683-fbe426f8fc95">you're settling.</p><p class="" dir="auto" id="3f858489-d681-80a2-b2b1-d732cea55b06">‎</p><p class="" dir="auto" id="3f858489-d681-805e-8463-dc2f3ad0542a">‎</p><p class="" dir="auto" id="3f858489-d681-8088-92f5-d1d3ca51a468">‎</p><h1 class="" dir="auto" id="3f858489-d681-80ff-92bf-fedc4d739c1a">our future</h1><p class="" dir="auto" id="3f858489-d681-8012-ad44-e8bee80c0593">we're wiping our ass with everything that made us human.</p><p class="" dir="auto" id="3f858489-d681-8037-baa2-e7c39c6d229c">instead of enjoying our lives by actually fucking living them －</p><p class="" dir="auto" id="3f858489-d681-807d-bebe-d2d4e57653ce">we let the lowest part of our being make every decision.</p><p class="" dir="auto" id="3f858489-d681-80d3-a115-c24190d65376">‎</p><p class="" dir="auto" id="3f858489-d681-80aa-8674-df5b53552ff6">is this what you came into this world for?</p><p class="" dir="auto" id="3f858489-d681-8088-8a2b-f41fed708f2a">‎</p><p class="" dir="auto" id="3f858489-d681-80ed-a404-d675577c7a1c">our inner child is screaming at us to create, explore, become.</p><p class="" dir="auto" id="3f858489-d681-802e-bfb9-ea0b5feed697">but it's drowned out by the demons we keep feeding every day.</p><p class="" dir="auto" id="3f858489-d681-802b-be42-e2b9c0365e1b">can you imagine a world where the majority of your fellow man lives like this?</p><p class="" dir="auto" id="3f858489-d681-808e-945c-c4288a6c90aa">‎</p><p class="" dir="auto" id="3f858489-d681-80cd-8b15-f06ac78bb8b3">things like war and genocide won't just be headlines anymore.</p><p class="" dir="auto" id="3f858489-d681-806f-8796-c97ca3c8416a">‎</p><p class="" dir="auto" id="3f858489-d681-801f-acf3-d74801f81dab">the problem isn't power － it's weakness.</p><p class="" dir="auto" id="3f858489-d681-8082-89be-ea5883e8dbba">our fear of facing our demons robs us of our humanity.</p><p class="" dir="auto" id="3f858489-d681-8050-a56c-f93a95ff5e52">anytime we concede a bit, it takes more.</p><p class="" dir="auto" id="3f858489-d681-80ac-93ba-cb0d1eec908d">‎</p><h3 class="" dir="auto" id="3f858489-d681-8021-9d18-ede6d7e3c4ed">until you're just a puppet, strung along by fear &amp; hate.</h3><p class="" dir="auto" id="3f858489-d681-8082-a659-c8a476f2990d">‎</p><p class="" dir="auto" id="3f858489-d681-80fa-960f-f67a960e868f">fuck all that.</p><p class="" dir="auto" id="3f858489-d681-8042-84f8-edb3dce7e466">‎</p><p class="" dir="auto" id="3f858489-d681-8065-a742-e0c56c33076c">we overcame the ice age, meteor impacts, and countless wars.</p><p class="" dir="auto" id="3f858489-d681-8046-b947-fde664817ec2">people dying left and right, winters without any food.</p><p class="" dir="auto" id="3f858489-d681-80ba-a631-dc96ab08785b"><strong>don't forget what it means to be human.</strong></p><p class="" dir="auto" id="3f858489-d681-80e8-ac2b-ffee8f018b3d">‎</p><p class="" dir="auto" id="3f858489-d681-8028-9d42-efdf548b055e">we can adapt to anything by becoming happy again.</p><p class="" dir="auto" id="3f858489-d681-808d-afb3-c6623b6992a6">slowly we'll see the empty calories for what they are － hollow.</p><p class="" dir="auto" id="3f858489-d681-80ea-a123-c8f9830b73aa">‎</p><p class="" dir="auto" id="3f858489-d681-80fd-af9a-c31482fed159">even the ones who can't see it at all, eventually hit a wall.</p><p class="" dir="auto" id="3f858489-d681-8013-b012-df68578c78d4">like flat-earthers going to the edge, only to end up right where they started.</p><p class="" dir="auto" id="3f858489-d681-80e4-876c-e8af2b417df2">i'm tellin you, even the blind will see it.</p><p class="" dir="auto" id="3f858489-d681-8061-9f58-ed04ef582a70">‎</p><p class="" dir="auto" id="3f858489-d681-8061-ad22-c2cc9162a95c">all of us will start waking up.</p><p class="" dir="auto" id="3f858489-d681-807c-a24f-cffccf47c94f">because if we don't,</p><p class="" dir="auto" id="3f858489-d681-80af-a759-cdfd02b8817b">‎</p><p class="" dir="auto" id="3f858489-d681-80ab-8b5e-dcb70e87cb25">we'll be the only species that starved to death</p><p class="" dir="auto" id="3f858489-d681-80c9-af25-ea9965dbb9c8">
+</p><p class="" dir="auto" id="3f858489-d681-8033-bc3b-fb0ef992e1b8">on a full stomach.</p></div></aside><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-background="gray_background" dir="ltr" id="3f858489-d681-80fd-8265-eb47f12e4ce0" style="white-space:pre-wrap;display:flex"><div style="width:100%"></div></aside></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
